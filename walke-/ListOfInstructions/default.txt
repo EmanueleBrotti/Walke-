@@ -1,0 +1,11 @@
+-here you'll list all the valid instructions, separated by a line
+-you can create other .txt files and if valid they will be read
+AND
+OR
+XOR
+>
+<>
+BUTTON
+SWITCH
+OUTPUT
+CLOCK
