@@ -1,11 +1,17 @@
 -here you'll list all the valid instructions, separated by a line
 -you can create other .txt files and if valid they will be read
-AND
-OR
-XOR
->
-<>
-BUTTON
-SWITCH
-OUTPUT
-CLOCK
+-"=" is used for the program to know how many pieces the instruction requires, ignoring outputs
+-for example, #FFFFFF AND #FF0000 = #000000 has 3 tokens (input1, instruction, input2)
+-CLOCK = #000000 has only 1 token (instruction)
+- each instruction requires an = to work properly and the instruction's name shouldn't have spaces.
+-for example, #FFFFFF AND #FF0000 is not a valid instruction because it doesn't have a "="
+-#FFFFFF SUM STUFF #FF0000 = #000000 is not a valid instruction because it has a " " between SUM and STUFF
+AND = 3
+OR = 3
+XOR = 3
+> = 3
+<> = 3
+BUTTON = 1
+SWITCH = 1
+OUTPUT = 1
+CLOCK = 1

@@ -1,5 +1,11 @@
 #checks if colors and instructions are correct
-global InstructionArray = String[] #contains all valid instructions
+
+struct InstructionStruct #has a name and a size
+    name::String
+    size::Int
+end
+
+global InstructionArray = InstructionStruct[] #contains all valid instructions + sizes
     
 
 function startInstructionArray() 
@@ -12,11 +18,22 @@ function startInstructionArray()
         end
         for line in Lines
             line = split(line, "-")[1] #remove comments
-
-
-            if (!isempty(line) && !(all(isspace, line))) #check if line is empty or all spaces
-            push!(InstructionArray, line) #adds line to instructionarray
+            line = replace(line, " "=>"") #remove spaces
+            if (isempty(line)) #skips if empty
+                continue
             end
+
+            if count(occursin("=", line)) != 1 #check if there isnt exactly one "="
+                #error, invalid instruction
+                continue
+            end
+
+            size = split(line, "=")[2] #how many pieces the instruction requires
+            line = split(line, "=")[1] #instruction
+            instruction = InstructionStruct(line, parse(Int, size))
+
+            push!(InstructionArray, instruction) #adds line to instructionarray
+
         end
     end
 
@@ -46,12 +63,9 @@ end
 function checkinstruction(instruction::String)
     #scan each element of the InstructionArray, if it's a valid instruction return true
     for element in InstructionArray
-        if uppercase(instruction) == uppercase(element) #walke- is not case sensitive
-            return true
+        if uppercase(instruction) == uppercase(element.name) #walke- is not case sensitive
+            return true, element.size #returns true if valid and the required size, to match it with the touple
         end
     end
-
-    return false #not a valid instruction
+    return false, 0 #not a valid instruction + no size
 end
-
-

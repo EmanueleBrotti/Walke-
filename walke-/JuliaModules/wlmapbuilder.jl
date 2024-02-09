@@ -1,4 +1,3 @@
-
 include("../Maple/src/Maple.jl")
 using .Maple
 
@@ -11,7 +10,7 @@ using .Maple
 ####################################
 
 MapEntities = Entity[Player(24, 176)] #array that contains the entities of the map, starts with the player
-
+MapName = "walke-program"
 lvl_1_fg = """
 333333333333333333333333333333333333333333333333
 3
@@ -71,10 +70,10 @@ function BuildMap()
     fgTiles = FgTiles(lvl_1_fg) #turns string into tiles
 
     @time map = Map( #creates the map
-    "Walke-Program",
+    MapName,
     Room[
         Room(
-            name = "lvl_1",
+            name = MapName,
 
             fgTiles = fgTiles, #tiles
 
@@ -86,10 +85,8 @@ function BuildMap()
     ])
 
     @time dMap = Dict(map) #assemble the map
-    @time encodeMap(dMap, "WalkeProgram.bin")
+    @time encodeMap(dMap, MapName * ".bin")
 end
-
-
 
 
 
