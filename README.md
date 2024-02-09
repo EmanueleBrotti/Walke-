@@ -20,4 +20,4 @@ This script compiles the code into a celeste map, that should be able to do simp
 
 ## Credits
 - Aletris, for compressing the logic gates as much as possible
-- [Maple](https://github.com/CelestialCartographers/Maple), the rep that made all of this possible
+- the [Maple](https://github.com/CelestialCartographers/Maple) team, the rep that made all of this possible
