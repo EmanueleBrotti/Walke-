@@ -27,6 +27,7 @@ i tried to code Walke- to be as modular as possible. I'm not actively working on
 - every instruction has a name containing a single UPPERCASE word with no spaces
 - every instruction has to have a "=" in it, at least 1 token (its name) and 1 output
 - right now walke- supports instructions with 3 or 1 tokens, other types can be implemented
+
 to implement a custom instruction:
 - add a .txt file in the ListOfInstructions folder, add "NAME = SIZE" in it (check the default one for more infos)
 - if SIZE is different than 3 or 1, add a new module in the JuliaModules folder, with a custom checkstructure function
