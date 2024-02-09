@@ -8,6 +8,7 @@ function main()
 
     ListOfCodes = filter(contains(r".wlk-$"), readdir("Programs/", join=true)) #open all "wlk-" files
     for file in ListOfCodes
+        println(file)
         error = 0 #resets the variables
         CodeLine = 0
 
@@ -31,8 +32,13 @@ function main()
 
             instructionside = split(cline, "=")[1] #instructions are composed of "stuff = output"
             outputside = split(cline, "=")[2] 
+            outputside = replace(outputside, " "=>"") #remove spaces
             instructions = split(instructionside, " ") #array of instructions
-            output = split(outputside, " ") #array of outputs
+            output = split(outputside, ",") #array of outputs
+            #filter instructions and output to remove all empty strings
+            instructions = filter(!isempty, instructions)
+            output = filter(!isempty, output)
+
 
             if length(output) > 1 #walke- doesn't support multi outputs yet
                 error = 69
@@ -47,16 +53,16 @@ function main()
                 break
             end
 
-            #error = checkstructure()
+            #turn instructions and output into strings (from substrings)
+            instructions = String.(instructions)
+            output = String.(output)
+
+
             error = checkstructure(Tuple(instructions), output) #check wlstructurecheck.jl for more info
 
             if error != 0 #i keep making pauses in the code to not fuck up the next instructions
                 break
             end
-
-
-
-
 
             CodeLine = CodeLine + 1
         end

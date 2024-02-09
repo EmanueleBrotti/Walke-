@@ -8,7 +8,7 @@ end
 
 #i wrote 2 functions that are basically a carbon copy of each other, but this system lets other people create their own
 #functions with specific use cases!
-function checkstructure(instructions::NTuple{3, String}, outputs::Array{String, 1}) #3 elements in the instruction + outputs
+function checkstructure(instructions::NTuple{3, AbstractString}, outputs::Array{String, 1}) #3 elements in the instruction + outputs
     error = 0
     InputsArray = ColorStruct[] #array of inputs, contains all valid colors + negated or not
     OutputsArray = ColorStruct[] #array of outputs, contains all valid colors + negated or not
@@ -42,7 +42,7 @@ function checkstructure(instructions::NTuple{3, String}, outputs::Array{String, 
                 token = strip(token, ['!','~'])
             end
 
-            push!(InputsArray, (token, checknot)) #adds the color + the flag
+            push!(InputsArray, ColorStruct(token, checknot)) #adds the color + the flag
         end
     end
     if flaginstruction == 1
@@ -61,25 +61,25 @@ function checkstructure(instructions::NTuple{3, String}, outputs::Array{String, 
                 output = strip(output, ['!','~'])
             end
 
-            push!(OutputsArray, (output, checknot)) #adds the color + the flag
+            push!(OutputsArray, ColorStruct(output, checknot)) #adds the color + the flag
         end
     end
 
     #if everything went smoothly we should have an array of inputs, an array of outputs and an instruction name
     
-    error = BuildInstruction(InstructionName, InputsArray, OutputsArray)
+    error = BuildInstruction(InputsArray, InstructionName, OutputsArray)
 
     return error
 end
 
 
 #same but for the instruction only case, no inputs
-function checkstructure(instructions::NTuple{1, String}, output::Array{String, 1}) #instruction + outputs
+function checkstructure(instructions::NTuple{1, AbstractString}, outputs::Array{String, 1}) #instruction + outputs
     error = 0
     token = instructions[1] #the instruction
     OutputsArray = ColorStruct[] #array of outputs, contains all valid colors + negated or not
 
-    iflag, size = checkinstruction(token) #check if it's a valid instruction
+    iflag = checkinstruction(token)[1] #check if it's a valid instruction
     if iflag != 0 #it's not
         error = iflag #invalid instruction
         return error

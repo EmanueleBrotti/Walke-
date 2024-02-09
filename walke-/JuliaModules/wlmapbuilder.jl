@@ -39,6 +39,11 @@ lvl_1_fg = """
 
 MapPointer = 392 #position offset for the next structure, every instruction spawns a different ingame structure
 
+struct ColorStruct #each color has a name and a flag, if false it should use the opposite
+    name::String
+    opposite::Bool
+end
+
 
 function BuildMap() 
     #closes the room
@@ -88,5 +93,15 @@ function BuildMap()
     @time encodeMap(dMap, MapName * ".bin")
 end
 
+function BuildInstruction(inputs::Array{ColorStruct, 1}, name::AbstractString, outputs::Array{ColorStruct, 1})
+    println("building")
+    println(name)
+    println(inputs)
+    println(outputs)
+end
 
-
+function BuildInstruction(name::AbstractString, outputs::Array{ColorStruct, 1})
+    println("building")
+    println(name)
+    println(outputs)
+end

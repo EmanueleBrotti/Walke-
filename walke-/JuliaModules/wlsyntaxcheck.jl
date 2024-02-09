@@ -42,7 +42,7 @@ end
 startInstructionArray() #starts the function
 
 #match color string with regex to see if it's a valid 6 digit hex code
-function checkcolor(color::String) #returns true if valid, false if not + checknot
+function checkcolor(color::AbstractString) #returns true if valid, false if not + checknot
     checknot = false; #starts the flag
     #check if color has 8 letters (not)
     if length(color) == 8
@@ -60,7 +60,7 @@ function checkcolor(color::String) #returns true if valid, false if not + checkn
 end
 
 #check if instruction is valid
-function checkinstruction(instruction::String)
+function checkinstruction(instruction::AbstractString)
     #scan each element of the InstructionArray, if it's a valid instruction return true
     for element in InstructionArray
         if uppercase(instruction) == uppercase(element.name) #walke- is not case sensitive
