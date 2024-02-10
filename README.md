@@ -20,8 +20,10 @@ This script compiles the code into a celeste map, that should be able to do simp
 - each instruction is always active, contrasting instructions create _weird bugs_
 - the language is not CaSe SeNsItIvE
 - right now Walke- supports only one output per instruction, this might change in the future
-
-
+## How to compile a Walke- script
+- write your code in a text file, save it with the ".wlk-" extention (or check the examples in the "Programs/Examples" folder)
+- move the file in the "Programs" folder
+- open the walke- folder in a code editor, run wlmain.jl
 ## Credits
 - Aletris, for compressing the logic gates as much as possible
 - the [Maple](https://github.com/CelestialCartographers/Maple) team, the rep that made all of this possible
@@ -34,5 +36,5 @@ i tried to code Walke- to be as modular as possible. I'm not actively working on
 
 to implement a custom instruction:
 - add a .txt file in the ListOfInstructions folder, add "NAME = SIZE" in it (check the default one for more infos)
-- if SIZE is different than 3 or 1, add a new module in the JuliaModules folder, with a custom checkstructure function
+- if SIZE is different than 3 or 1, add a new module in the JuliaModules folder, with a custom checkstructure function (open wlstructurecheck to check how it works)
 [UPDATEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE]
