@@ -45,7 +45,7 @@ the default instructions are:
 - `BUTTON = #00000C` - spawns an in-game button that changes state when pressed, reverts when not
 - `SWITCH = #00000C` - spawns an in-game switch that changes state when touched
 - `OUTPUT = #00000C` - spawns an in-game block, useful to see the value of a variable
-- `CLOCK = #00000C`  - spawns an in-game clock that generate a periodic pulse
+- `CLOCK = #00000C`  - spawns an in-game clock that generates a periodic pulse
 
 ## Credits
 - Aletris, for compressing the logic gates as much as possible
