@@ -1,6 +1,7 @@
 #depending on the number of instructions, it calls a different checkstructure()
 #julia sucks and you cant force an array size inside a function so im using tuples, as for outputs idc
 
+
 struct ColorStruct #each color has a name and a flag, if false it should use the opposite
     name::String
     opposite::Bool
@@ -9,6 +10,7 @@ end
 #i wrote 2 functions that are basically a carbon copy of each other, but this system lets other people create their own
 #functions with specific use cases!
 function checkstructure(instructions::NTuple{3, AbstractString}, outputs::Array{String, 1}) #3 elements in the instruction + outputs
+    
     error = 0
     InputsArray = ColorStruct[] #array of inputs, contains all valid colors + negated or not
     OutputsArray = ColorStruct[] #array of outputs, contains all valid colors + negated or not
@@ -18,25 +20,29 @@ function checkstructure(instructions::NTuple{3, AbstractString}, outputs::Array{
 
     for token in instructions
         cflag, checknot = checkcolor(token) #is the token a color?
-        if cflag != 0 #the token is not a color, is it an instruction name?
-            if flaginstruction == 0 #wait, we already found a valid instruction name, so the user wrote some weird multi instruction shit
-                error = 7 #multiple instructions in a line
+        if cflag == false #the token is not a color, is it an instruction name?
+            iflag, size = checkinstruction(token) #check if it's a valid instruction
+            if iflag == false #it's not
+                error = 68 #invalid instruction or color
+                wlerrors.WriteError(error, token)
                 return error
-            else 
-                iflag, size = checkinstruction(token) #check if it's a valid instruction
-                if iflag != 0 #it's not
-                    error = iflag #invalid instruction or color
-                    return error
-                else #it is! Let's check if the size is correct (3 inputs)
-                    if size == 3 #it's correct!
-                        flaginstruction = 0
-                        InstructionName = uppercase(token)
-                    else
-                        error = 3 #wrong structure!
+            else #it is! Let's check if the size is correct (3 inputs)
+                if size == 3 #it's correct! But wait, is it the only instruction in the line?
+                    if flaginstruction == 0 #wait, we already found a valid instruction, so the user wrote some weird multi instruction shit
+                        error = 4 #multiple instructions in a line
+                        wlerrors.WriteError(error, instructions)
                         return error
                     end
+                    #it is! Let's set the flag
+                    flaginstruction = 0
+                    InstructionName = uppercase(token) #not case sensitive
+                else
+                    error = 3 #wrong structure!
+                    wlerrors.WriteError(error, instructions)
+                    return error
                 end
             end
+
         else #the token is a color, add it to the array of inputs
             if(checknot) #remove the first character from the color
                 token = strip(token, ['!','~'])
@@ -47,14 +53,16 @@ function checkstructure(instructions::NTuple{3, AbstractString}, outputs::Array{
     end
     if flaginstruction == 1
         error = 3 #wrong structure, there isnt an instruction!
+        wlerrors.WriteError(error, instructions)
         return error
     end
 
     #check the outputs
     for output in outputs
         cflag, checknot = checkcolor(output) #is the output a color?
-        if cflag != 0 #the output is not a color
-            error = cflag #invalid color
+        if cflag == false #the output is not a color
+            error = 2 #invalid color
+            wlerrors.WriteError(error, output)
             return error
         else #the output is a color
             if(checknot) #remove the first character from the color
@@ -80,8 +88,9 @@ function checkstructure(instructions::NTuple{1, AbstractString}, outputs::Array{
     OutputsArray = ColorStruct[] #array of outputs, contains all valid colors + negated or not
 
     iflag = checkinstruction(token)[1] #check if it's a valid instruction
-    if iflag != 0 #it's not
-        error = iflag #invalid instruction
+    if iflag == false #it's not
+        error = 1 #invalid instruction
+        wlerrors.WriteError(error, token)
         return error
     end
     token = uppercase(token) #walke- is not case sensitive
@@ -89,15 +98,16 @@ function checkstructure(instructions::NTuple{1, AbstractString}, outputs::Array{
     #check the outputs
     for output in outputs
         cflag, checknot = checkcolor(output) #is the output a color?
-        if cflag != 0 #the output is not a color
-            error = cflag #invalid color
+        if cflag == false #the output is not a color
+            error = 2 #invalid color
+            wlerrors.WriteError(error, output)
             return error
         else #the output is a color
             if(checknot) #remove the first character from the color
                 output = strip(output, ['!','~'])
             end
 
-            push!(OutputsArray, (output, checknot)) #adds the color + the flag
+            push!(OutputsArray, ColorStruct(output, checknot)) #adds the color + the flag
         end
     end
     
@@ -106,6 +116,6 @@ function checkstructure(instructions::NTuple{1, AbstractString}, outputs::Array{
     return error
 end
 
-function checkstructure(x,y) #default function for invalid size
-    return 3 #error, wrong structure
-end
+#function checkstructure(x,y) #default function for invalid size
+    #return 3 #error, wrong structure
+#end

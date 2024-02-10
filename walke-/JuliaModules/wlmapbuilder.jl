@@ -94,14 +94,11 @@ function BuildMap()
 end
 
 function BuildInstruction(inputs::Array{ColorStruct, 1}, name::AbstractString, outputs::Array{ColorStruct, 1})
-    println("building")
-    println(name)
-    println(inputs)
-    println(outputs)
+
+    return 0
 end
 
 function BuildInstruction(name::AbstractString, outputs::Array{ColorStruct, 1})
-    println("building")
-    println(name)
-    println(outputs)
+
+    return 0
 end

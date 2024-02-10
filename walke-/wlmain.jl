@@ -1,5 +1,6 @@
 import JSON
 include.(filter(contains(r".jl$"), readdir("JuliaModules/"; join=true))) #includes all modules
+using .wlerrors
 
 error = 0 #0 = no errors, different values have different errors
 CodeLine = 0 #to see where the error is
@@ -8,7 +9,7 @@ function main()
 
     ListOfCodes = filter(contains(r".wlk-$"), readdir("Programs/", join=true)) #open all "wlk-" files
     for file in ListOfCodes
-        println(file)
+        wlerrors.ErrorFile = file
         error = 0 #resets the variables
         CodeLine = 0
 
@@ -27,6 +28,7 @@ function main()
 
             if count(occursin("=", cline)) != 1 #check if there isnt exactly one "="
                 error = 1 #not valid instruction
+                WriteError(error, cline)
                 break #stops checking this file
             end
 
@@ -42,21 +44,23 @@ function main()
 
             if length(output) > 1 #walke- doesn't support multi outputs yet
                 error = 69
+                wlerrors.WriteError(error, output)
                 break
             elseif length(output) == 0 #forgor the outputs
                 error = 3 #wrong structure
+                wlerrors.WriteError(error, cline)
                 break
             end
 
             if length(instructions) == 0 #forgor the instructions
                 error = 3 #wrong structure
+                wlerrors.WriteError(error, cline)
                 break
             end
 
             #turn instructions and output into strings (from substrings)
             instructions = String.(instructions)
             output = String.(output)
-
 
             error = checkstructure(Tuple(instructions), output) #check wlstructurecheck.jl for more info
 
@@ -65,6 +69,7 @@ function main()
             end
 
             CodeLine = CodeLine + 1
+            wlerrors.ErrorLine = CodeLine #for the wlerrors module
         end
 
     end
