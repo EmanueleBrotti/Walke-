@@ -1,5 +1,4 @@
-include("../Maple/src/Maple.jl")
-using .Maple
+using Maple
 
 #define the entities used for Maple
 @mapdef Entity "EmHelper/Walkeline" Walkeline(x::Integer, y::Integer, haircolor::String="212121", left::Bool=true, weak::Bool=false, dangerous::Bool=false, ally::Bool=true, bouncy::Bool=false, smart::Bool=false, mute::Bool=false, nobackpack::Bool=false, idle::Bool=false, deathflag::String="WalkelineIsDead")
@@ -11,7 +10,8 @@ using .Maple
 
 MapEntities = Entity[Player(24, 176)] #array that contains the entities of the map, starts with the player
 MapName = "walke-program"
-lvl_1_fg = """
+
+tiles = """
 333333333333333333333333333333333333333333333333
 3
 3
@@ -44,10 +44,22 @@ struct ColorStruct #each color has a name and a flag, if false it should use the
     opposite::Bool
 end
 
+function ConcatenateStrings(s1::AbstractString, s2::AbstractString) #the problem is that i can't sum 2 strings together, but i have to sum them line by line
+    sarray1 = split(s1, "\n")
+    sarray2 = split(s2, "\n")
+    if length(sarray1) != length(sarray2) #the map might end up messed up
+        return "", 5
+    end
+
+
+    ConcatenatedStrings = [line1 * line2 for (line1, line2) in zip(sarray1, sarray2)] #concatenats all lines, zip is just for safety
+
+    return String(join(ConcatenatedStrings, "\n")), 0 #returns a string and error
+end
 
 function BuildMap() 
     #closes the room
-    lvl_1_fg = concstrings(lvl_1_fg, """
+    closedtiles, error = ConcatenateStrings(tiles, """
         3
         3
         3
@@ -72,7 +84,11 @@ function BuildMap()
         3
         3""")
     #println(lvl_1_fg)
-    fgTiles = FgTiles(lvl_1_fg) #turns string into tiles
+    if error != 0
+        wlerrors.WriteError(error, "")
+        return error
+    end
+    fgTiles = FgTiles(closedtiles) #turns string of tiles into celeste tiles
 
     @time map = Map( #creates the map
     MapName,
@@ -90,7 +106,9 @@ function BuildMap()
     ])
 
     @time dMap = Dict(map) #assemble the map
-    @time encodeMap(dMap, MapName * ".bin")
+    MapPath = "Programs/Outputs/" * (MapName * ".bin")
+    @time encodeMap(dMap, MapPath)
+    println("done")
 end
 
 function BuildInstruction(inputs::Array{ColorStruct, 1}, name::AbstractString, outputs::Array{ColorStruct, 1})

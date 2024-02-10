@@ -72,6 +72,8 @@ function main()
             wlerrors.ErrorLine = CodeLine #for the wlerrors module
         end
 
+        println("lvl_1_fg", lvl_1_fg)
+        BuildMap() #compiles the map
     end
 end
 
