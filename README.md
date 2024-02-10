@@ -20,6 +20,10 @@ This script compiles the code into a celeste map, that should be able to do simp
 - each instruction is always active, contrasting instructions create _weird bugs_
 - the language is not CaSe SeNsItIvE
 - right now Walke- supports only one output per instruction, this might change in the future
+
+## Isn't it [Spass](https://webspass.spass-prover.org) but worse?
+No, because Walke- can't detect contraddictions. If a contraddiction happens, then the code
+behaves in an unpredictable way
 ## How to compile a Walke- script
 - write your code in a text file, save it with the ".wlk-" extention (or check the examples in the "Programs/Examples" folder)
 - move the file in the "Programs" folder
