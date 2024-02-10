@@ -1,12 +1,6 @@
 #depending on the number of instructions, it calls a different checkstructure()
 #julia sucks and you cant force an array size inside a function so im using tuples, as for outputs idc
 
-
-struct ColorStruct #each color has a name and a flag, if false it should use the opposite
-    name::String
-    opposite::Bool
-end
-
 #i wrote 2 functions that are basically a carbon copy of each other, but this system lets other people create their own
 #functions with specific use cases!
 function checkstructure(instructions::NTuple{3, AbstractString}, outputs::Array{String, 1}) #3 elements in the instruction + outputs

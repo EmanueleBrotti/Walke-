@@ -1,6 +1,12 @@
 import JSON
 include.(filter(contains(r".jl$"), readdir("JuliaModules/"; join=true))) #includes all modules
+include.(filter(contains(r".jl$"), readdir("JuliaModules/WlInstructions/"; join=true))) #includes all instructions
 using .wlerrors
+
+struct ColorStruct #each color has a name and a flag, if false it should use the opposite
+    name::String
+    opposite::Bool
+end
 
 error = 0 #0 = no errors, different values have different errors
 CodeLine = 0 #to see where the error is
@@ -72,8 +78,11 @@ function main()
             wlerrors.ErrorLine = CodeLine #for the wlerrors module
         end
 
-        println("lvl_1_fg", lvl_1_fg)
-        BuildMap() #compiles the map
+        if error == 0 #compiles the map
+            FileName = split(file, "/")[end] #removes folders
+            FileName = replace(FileName, ".wlk-" => "")
+            BuildMap(FileName)
+        end   
     end
 end
 

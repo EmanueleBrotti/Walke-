@@ -20,7 +20,7 @@ function WriteError(error::Int, element::Any)
     elseif error == 5
         errortext = errortext * ("problems compiling the map")
     elseif error == 6
-        errortext = errortext * ("problem executing the instruction")
+        errortext = errortext * ("problem executing the instruction " * string(element))
     elseif error == 68
         errortext = errortext * (string(element) * " is not a valid color or instruction")
     elseif error == 69

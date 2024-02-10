@@ -1,4 +1,5 @@
-using Maple
+using Maple #to actually create the map
+
 
 #define the entities used for Maple
 @mapdef Entity "EmHelper/Walkeline" Walkeline(x::Integer, y::Integer, haircolor::String="212121", left::Bool=true, weak::Bool=false, dangerous::Bool=false, ally::Bool=true, bouncy::Bool=false, smart::Bool=false, mute::Bool=false, nobackpack::Bool=false, idle::Bool=false, deathflag::String="WalkelineIsDead")
@@ -39,11 +40,6 @@ tiles = """
 
 MapPointer = 392 #position offset for the next structure, every instruction spawns a different ingame structure
 
-struct ColorStruct #each color has a name and a flag, if false it should use the opposite
-    name::String
-    opposite::Bool
-end
-
 function ConcatenateStrings(s1::AbstractString, s2::AbstractString) #the problem is that i can't sum 2 strings together, but i have to sum them line by line
     sarray1 = split(s1, "\n")
     sarray2 = split(s2, "\n")
@@ -57,7 +53,8 @@ function ConcatenateStrings(s1::AbstractString, s2::AbstractString) #the problem
     return String(join(ConcatenatedStrings, "\n")), 0 #returns a string and error
 end
 
-function BuildMap() 
+function BuildMap(name::AbstractString) 
+    MapName = name #to have different maps while compiling different files
     #closes the room
     closedtiles, error = ConcatenateStrings(tiles, """
         3
@@ -112,8 +109,14 @@ function BuildMap()
 end
 
 function BuildInstruction(inputs::Array{ColorStruct, 1}, name::AbstractString, outputs::Array{ColorStruct, 1})
-
-    return 0
+    error = 0
+    if isdefined(Main, Symbol(name)) #checks if name is a valid instruction
+        error = eval(Symbol(name))(inputs, outputs) #calls the function
+    else
+        error = 6 #problems executing the instruction
+        wlerrors.WriteError(error, String(name))
+    end
+    return error
 end
 
 function BuildInstruction(name::AbstractString, outputs::Array{ColorStruct, 1})
