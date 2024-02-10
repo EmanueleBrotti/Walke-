@@ -1,5 +1,9 @@
 using Maple #to actually create the map
 
+struct ColorStruct #each color has a name and a flag, if false it should use the opposite
+    name::String
+    opposite::Bool
+end
 
 #define the entities used for Maple
 @mapdef Entity "EmHelper/Walkeline" Walkeline(x::Integer, y::Integer, haircolor::String="212121", left::Bool=true, weak::Bool=false, dangerous::Bool=false, ally::Bool=true, bouncy::Bool=false, smart::Bool=false, mute::Bool=false, nobackpack::Bool=false, idle::Bool=false, deathflag::String="WalkelineIsDead")
@@ -120,6 +124,14 @@ function BuildInstruction(inputs::Array{ColorStruct, 1}, name::AbstractString, o
 end
 
 function BuildInstruction(name::AbstractString, outputs::Array{ColorStruct, 1})
+    error = 0
+    if isdefined(Main, Symbol(name)) #checks if name is a valid instruction
+        error = eval(Symbol(name))(outputs) #calls the function
+    else
+        error = 6 #problems executing the instruction
+        wlerrors.WriteError(error, String(name))
+    end
+    return error
 
     return 0
 end
