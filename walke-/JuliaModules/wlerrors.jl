@@ -1,10 +1,10 @@
 module wlerrors
-export WriteError, Errorline, Errorfile
-
+export WriteError, Errorline, Errorfile, WlConsole
 
 global ErrorLine::Int = 0 #to see where the error is
 global ErrorFile::String = "" #the main will update all of this
 
+WlLog::String = "Walke- By Brotti Emanuele"#log file
 
 function WriteError(error::Int, element::Any)
     errortext = ("error " * string(error) * " on line " * string(ErrorLine) * " in file " * string(ErrorFile) * ": ")
@@ -27,8 +27,23 @@ function WriteError(error::Int, element::Any)
         errortext = errortext * ("walke- doesn't support multi outputs yet")
     end
 
-    println(errortext)
+    WlConsole(errortext)
     return
 
 end
+
+function WlConsole(text::AbstractString)
+    text = "- " * text #the line is here only to be quirky
+    println(text)
+    wlerrors.WlLog = WlLog * (text * "\n") 
+    return
+end
+
+function WlSaveLog()
+    path = "Programs/Outputs/WlLog.txt"
+    open(path, "w") do f #saves the log in the path
+        write(f, wlerrors.WlLog)
+    end
+end
+
 end

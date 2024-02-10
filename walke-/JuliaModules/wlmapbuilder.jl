@@ -109,7 +109,7 @@ function BuildMap(name::AbstractString)
     @time dMap = Dict(map) #assemble the map
     MapPath = "Programs/Outputs/" * (MapName * ".bin")
     @time encodeMap(dMap, MapPath)
-    println("done")
+    wlerrors.WlConsole(String(MapName) * " compiled! You can find it in Programs/Outputs")
 end
 
 function BuildInstruction(inputs::Array{ColorStruct, 1}, name::AbstractString, outputs::Array{ColorStruct, 1})

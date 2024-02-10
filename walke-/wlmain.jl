@@ -13,9 +13,16 @@ CodeLine = 0 #to see where the error is
 
 function main()
 
+    wlerrors.WlConsole("Walke- By Brotti Emanuele") #adds stuff to the log
+    wlerrors.WlConsole("-------------------------")
+    wlerrors.WlConsole("opening .wlk- files in /Programs/")
+
+
     ListOfCodes = filter(contains(r".wlk-$"), readdir("Programs/", join=true)) #open all "wlk-" files
     for file in ListOfCodes
+        wlerrors.WlConsole("-------------------------")
         wlerrors.ErrorFile = file
+        wlerrors.WlConsole("reading file " * String(file))
         error = 0 #resets the variables
         CodeLine = 0
 
@@ -24,6 +31,7 @@ function main()
         end
 
         for cline in code #read each line of code
+            wlerrors.ErrorLine = CodeLine #for the wlerrors module
             cline = split(cline, "-")[1] #remove comments
             if (isempty(cline) || (all(isspace, cline))) #check if line is empty or all spaces
                 CodeLine = CodeLine + 1 #skip it
@@ -75,15 +83,19 @@ function main()
             end
 
             CodeLine = CodeLine + 1
-            wlerrors.ErrorLine = CodeLine #for the wlerrors module
         end
 
         if error == 0 #compiles the map
             FileName = split(file, "/")[end] #removes folders
             FileName = replace(FileName, ".wlk-" => "")
+            wlerrors.WlConsole("compiling " * String(FileName) * ".bin")
             BuildMap(FileName)
-        end   
+        else
+            wlerrors.WlConsole("Couldn't compile the map, an error was found!")
+        end 
     end
 end
 
 main() #calls main
+wlerrors.WlConsole("Script ended, creating log!")
+wlerrors.WlSaveLog() #saves the log
