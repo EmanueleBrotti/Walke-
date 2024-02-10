@@ -24,6 +24,7 @@ This script compiles the code into a celeste map, that should be able to do simp
 - write your code in a text file, save it with the ".wlk-" extention (or check the examples in the "Programs/Examples" folder)
 - move the file in the "Programs" folder
 - open the walke- folder in a code editor, run wlmain.jl
+- please don't edit/delete the folders, checking the integrity of each path might be developed in the future
 ## Credits
 - Aletris, for compressing the logic gates as much as possible
 - the [Maple](https://github.com/CelestialCartographers/Maple) team, the rep that made all of this possible
