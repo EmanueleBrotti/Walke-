@@ -23,6 +23,7 @@ This script compiles the code into a celeste map, that should be able to do simp
 - right now Walke- supports only one output per instruction, this might change in the future
 - each line can only contain one instruction, or be left empty
 - comments as always are ignored
+- the map won't be compiled if the script encounters an error
 
 
 ## How to compile a Walke- script
@@ -58,7 +59,7 @@ behaves in an unpredictable way
 ## Hacking the gate
 i tried to code Walke- to make it as modular as possible. I'm not actively working on it, but in theory it should be possible to add more instructions, following those rules:
 - every instruction has a name containing a single UPPERCASE word with no spaces
-- every instruction has to have a `=` in it, at least 1 token (its name) and 1 output
+- every instruction has to have exactly one `=` in it, at least 1 token (its name) and 1 output
 - right now walke- supports instructions with 3 or 1 tokens, other types can be implemented
 
 to implement a custom instruction:
