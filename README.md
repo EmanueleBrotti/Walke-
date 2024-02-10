@@ -3,6 +3,9 @@ julia script that turns a set of instructions into a playable celeste map
 ## Requirements
 - a modded version of the celeste client
 - [EmHelper](https://gamebanana.com/mods/53716)
+- [Julia](https://julialang.org) on your fav. code editor
+- [Maple](https://github.com/CelestialCartographers/Maple)
+- [JSON](https://juliapackages.com/p/json)
 ## What's Walke-
 Walke- is an esoteric programming language made to simplify the process of "coding" in celeste,
 using the entities in my helper. I wrote this script to eventually code Conway's game of life in the game,
