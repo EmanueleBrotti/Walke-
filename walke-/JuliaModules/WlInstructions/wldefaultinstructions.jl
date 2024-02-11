@@ -63,6 +63,10 @@ function AND(inputs::Vector, outputs::Vector)
         push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentswapblock((wlmapbuilder.MapPointer+8), 64,(wlmapbuilder.MapPointer+8),72, 16, 16, 0, String(input2.name), true))
     end
 
+    #extra: lets manually control the inputs
+    push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentflipswitch((wlmapbuilder.MapPointer+8), 104, false, false, String(input1.name), true, 0))
+    push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentflipswitch((wlmapbuilder.MapPointer+24), 104, false, false, String(input2.name), true, 0))
+
     wlmapbuilder.MapPointer += 48
     return error
 end
@@ -131,6 +135,10 @@ function OR(inputs::Vector, outputs::Vector)
         push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentswapblock((wlmapbuilder.MapPointer+8), 80,(wlmapbuilder.MapPointer+8),64, 16, 16, 0, String(input2.name), true))
     end
 
+    #extra: lets manually control the inputs
+    push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentflipswitch((wlmapbuilder.MapPointer+8), 104, false, false, String(input1.name), true, 0))
+    push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentflipswitch((wlmapbuilder.MapPointer+24), 104, false, false, String(input2.name), true, 0))
+
     wlmapbuilder.MapPointer += 48
     return error
 end
@@ -150,19 +158,129 @@ function EQUIV(inputs::Vector, outputs::Vector) #unfinished
     return 0
 end
 
-function BUTTON(inputs::Vector, outputs::Vector) #unfinished
+function BUTTON(outputs::Vector)
+    error = 0
+    for output in outputs #adds the structure for every output
 
-    return 0
-end
+        wlmapbuilder.tiles, error = wlmapbuilder.ConcatenateStrings(wlmapbuilder.tiles, """
+        3333
 
-function SWITCH(outputs::Vector) #unfinished
     
-    return 0
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+
+
+
+
+
+
+
+         33
+        3333""")
+
+        if error != 0
+            wlerrors.WlConsole("weird bug while concatenating strings")
+            return error
+        end
+
+        push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentpressureplate((wlmapbuilder.MapPointer+8), 168, 0, false, String(output.name), true, false, false))
+        
+        wlmapbuilder.MapPointer += 32
+    end
+    
+    return error
 end
 
-function OUTPUT(outputs::Vector) #unfinished
+function SWITCH(outputs::Vector) 
+    error = 0
+    for output in outputs #adds the structure for every output
 
-    return 0
+        wlmapbuilder.tiles, error = wlmapbuilder.ConcatenateStrings(wlmapbuilder.tiles, """
+        3333
+
+    
+    
+    
+    
+    
+    
+    
+    
+         33
+         33
+
+
+
+
+
+
+
+
+
+
+        3333""")
+
+        if error != 0
+            wlerrors.WlConsole("weird bug while concatenating strings")
+            return error
+        end
+
+        push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentflipswitch((wlmapbuilder.MapPointer+8), 104, false, false, String(output.name), true, 0))
+        wlmapbuilder.MapPointer += 32
+    end
+    
+    return error
+end
+
+function OUTPUT(outputs::Vector) 
+    error = 0
+    for output in outputs #adds the structure for every output
+
+        wlmapbuilder.tiles, error = wlmapbuilder.ConcatenateStrings(wlmapbuilder.tiles, """
+        3333
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+
+
+
+
+
+
+
+
+        3333""")
+
+        if error != 0
+            wlerrors.WlConsole("weird bug while concatenating strings")
+            return error
+        end
+
+        push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentswitchblock((wlmapbuilder.MapPointer), 24, 16, 64, 0, output.opposite, String(output.name))) #creates a 16x16 block with the output in (relative) 16x 24y
+        
+        wlmapbuilder.MapPointer += 32
+    end
+    
+    return error
 end
 
 function CLOCK(outputs::Vector) #unfinished

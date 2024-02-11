@@ -56,12 +56,14 @@ function main()
             instructions = filter(!isempty, instructions)
             output = filter(!isempty, output)
 
+            #if length(output) > 1 #walke- doesn't support multi outputs yet
+                #error = 69
+                #wlerrors.WriteError(error, output)
+                #break
+            #else
 
-            if length(output) > 1 #walke- doesn't support multi outputs yet
-                error = 69
-                wlerrors.WriteError(error, output)
-                break
-            elseif length(output) == 0 #forgor the outputs
+
+            if length(output) == 0 #forgor the outputs
                 error = 3 #wrong structure
                 wlerrors.WriteError(error, cline)
                 break
