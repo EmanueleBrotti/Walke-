@@ -20,7 +20,7 @@ This script compiles the code into a celeste map, that should be able to do simp
   ![#FF0000](https://placehold.co/15x15/ff0000/ff0000.png) and ![#00FF00](https://placehold.co/15x15/00ff00/00ff00.png) = ![#0000FF](https://placehold.co/15x15/0000ff/0000ff.png) 
 - each instruction is always active, contrasting instructions create _weird bugs_
 - the language is not CaSe SeNsItIvE
-- right now Walke- supports only one output per instruction, this might change in the future
+- walke- supports multiple outputs per instruction, separated by a `,`
 - each line can only contain one instruction, or be left empty
 - comments as always are ignored
 - the map won't be compiled if the script encounters an error
