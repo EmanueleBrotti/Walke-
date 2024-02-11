@@ -47,6 +47,8 @@ the default instructions are:
 - `SWITCH = #00000C` - spawns an in-game switch that changes state when touched
 - `OUTPUT = #00000C` - spawns an in-game block, useful to see the value of a variable
 - `CLOCK = #00000C`  - spawns an in-game clock that generates a periodic pulse
+- `TRUE = #00000C`  - triggers the color when starting the room
+- `FALSE = #00000C`  - just like true, but sets true the opposite (it's a pseudoinstruction)
 
 ## Credits
 - Aletris, for compressing the logic gates as much as possible
