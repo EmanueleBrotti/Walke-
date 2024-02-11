@@ -1,9 +1,7 @@
-using Maple #to actually create the map
+module wlmapbuilder
+export BuildMap, BuildInstruction, ConcatenateStrings, tiles, MapEntities
 
-struct ColorStruct #each color has a name and a flag, if false it should use the opposite
-    name::String
-    opposite::Bool
-end
+using Maple #to actually create the map
 
 #define the entities used for Maple
 @mapdef Entity "EmHelper/Walkeline" Walkeline(x::Integer, y::Integer, haircolor::String="212121", left::Bool=true, weak::Bool=false, dangerous::Bool=false, ally::Bool=true, bouncy::Bool=false, smart::Bool=false, mute::Bool=false, nobackpack::Bool=false, idle::Bool=false, deathflag::String="WalkelineIsDead")
@@ -16,19 +14,19 @@ end
 MapEntities = Entity[Player(24, 176)] #array that contains the entities of the map, starts with the player
 MapName = "walke-program"
 
-tiles = """
+tiles::String = """
 333333333333333333333333333333333333333333333333
 3
+3  3   3  3     3 33
+3  3   3  3     33
+3  3 3 3  3     333   3333
+3   3 3   3333  3  3
 3
-3
-3
-3
-3
-3
-3
-3
-3
-3
+3  33333     3333
+3  3         3   3       
+3  333       3333       
+3  3         3   3      
+3  33333  3  3333  3     
 3
 3
 3
@@ -47,6 +45,10 @@ MapPointer = 392 #position offset for the next structure, every instruction spaw
 function ConcatenateStrings(s1::AbstractString, s2::AbstractString) #the problem is that i can't sum 2 strings together, but i have to sum them line by line
     sarray1 = split(s1, "\n")
     sarray2 = split(s2, "\n")
+
+    maxlinelength = maximum(length.(sarray1)) #results the biggest line, in order to fill the smaller ones with spaces
+    sarray1 .= rpad.(sarray1, maxlinelength) #fill the smaller lines with spaces, in order to not mess up the structures
+
     if length(sarray1) != length(sarray2) #the map might end up messed up
         return "", 5
     end
@@ -109,29 +111,30 @@ function BuildMap(name::AbstractString)
     @time dMap = Dict(map) #assemble the map
     MapPath = "Programs/Outputs/" * (MapName * ".bin")
     @time encodeMap(dMap, MapPath)
-    wlerrors.WlConsole(String(MapName) * " compiled! You can find it in Programs/Outputs")
+    Main.wlerrors.WlConsole(String(MapName) * " compiled! You can find it in Programs/Outputs")
 end
 
-function BuildInstruction(inputs::Array{ColorStruct, 1}, name::AbstractString, outputs::Array{ColorStruct, 1})
+function BuildInstruction(inputs::Vector, name::AbstractString, outputs::Vector)
     error = 0
     if isdefined(Main, Symbol(name)) #checks if name is a valid instruction
-        error = eval(Symbol(name))(inputs, outputs) #calls the function
+        error = Main.eval(Symbol(name))(inputs, outputs) #calls the function
     else
         error = 6 #problems executing the instruction
-        wlerrors.WriteError(error, String(name))
+        Main.wlerrors.WriteError(error, String(name))
     end
     return error
 end
 
-function BuildInstruction(name::AbstractString, outputs::Array{ColorStruct, 1})
+function BuildInstruction(name::AbstractString, outputs::Vector)
     error = 0
     if isdefined(Main, Symbol(name)) #checks if name is a valid instruction
-        error = eval(Symbol(name))(outputs) #calls the function
+        error = Main.eval(Symbol(name))(outputs) #calls the function
     else
         error = 6 #problems executing the instruction
-        wlerrors.WriteError(error, String(name))
+        Main.wlerrors.WriteError(error, String(name))
     end
     return error
 
     return 0
+end
 end

@@ -1,12 +1,12 @@
 import JSON
-include.(filter(contains(r".jl$"), readdir("JuliaModules/"; join=true))) #includes all modules
-include.(filter(contains(r".jl$"), readdir("JuliaModules/WlInstructions/"; join=true))) #includes all instructions
-using .wlerrors
-
 struct ColorStruct #each color has a name and a flag, if false it should use the opposite
     name::String
     opposite::Bool
 end
+
+include.(filter(contains(r".jl$"), readdir("JuliaModules/"; join=true))) #includes all modules
+include.(filter(contains(r".jl$"), readdir("JuliaModules/WlInstructions/"; join=true))) #includes all instructions
+using .wlerrors, .wlmapbuilder
 
 error = 0 #0 = no errors, different values have different errors
 CodeLine = 0 #to see where the error is
@@ -89,7 +89,7 @@ function main()
             FileName = split(file, "/")[end] #removes folders
             FileName = replace(FileName, ".wlk-" => "")
             wlerrors.WlConsole("compiling " * String(FileName) * ".bin")
-            BuildMap(FileName)
+            wlmapbuilder.BuildMap(FileName)
         else
             wlerrors.WlConsole("Couldn't compile the map, an error was found!")
         end 

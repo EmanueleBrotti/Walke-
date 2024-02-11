@@ -69,7 +69,7 @@ function checkstructure(instructions::NTuple{3, AbstractString}, outputs::Array{
 
     #if everything went smoothly we should have an array of inputs, an array of outputs and an instruction name
     
-    error = BuildInstruction(InputsArray, InstructionName, OutputsArray)
+    error = wlmapbuilder.BuildInstruction(InputsArray, InstructionName, OutputsArray)
 
     return error
 end
@@ -105,11 +105,12 @@ function checkstructure(instructions::NTuple{1, AbstractString}, outputs::Array{
         end
     end
     
-    error = BuildInstruction(token, OutputsArray) #we dont have inputs
+    error = wlmapbuilder.BuildInstruction(token, OutputsArray) #we dont have inputs
 
     return error
 end
 
-#function checkstructure(x,y) #default function for invalid size
-    #return 3 #error, wrong structure
-#end
+function checkstructure(x,y) #default function for invalid size
+    wlerrors.WriteError(3, output) #invalid structure
+    return 3
+end
