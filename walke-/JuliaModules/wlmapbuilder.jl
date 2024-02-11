@@ -1,5 +1,5 @@
 module wlmapbuilder
-export BuildMap, BuildInstruction, ConcatenateStrings, tiles, MapEntities
+export BuildMap, BuildInstruction, ConcatenateStrings, tiles, MapEntities, resetbuilder
 
 using Maple #to actually create the map
 
@@ -14,12 +14,22 @@ using Maple #to actually create the map
 MapEntities = Entity[Player(24, 176)] #array that contains the entities of the map, starts with the player
 MapName = "walke-program"
 
-tiles::String = """
+tiles::String = ""
+#first part of the room tiles, left empty
+
+MapPointer = 392 #position offset for the next structure, every instruction spawns a different ingame structure
+
+function resetbuilder()
+    wlmapbuilder.MapEntities = Entity[Player(24, 176)] #array that contains the entities of the map, starts with the player
+    wlmapbuilder.MapName = "walke-program"
+
+    wlmapbuilder.tiles::String = """
 333333333333333333333333333333333333333333333333
 3
+3  3   3  3     3  3
 3  3   3  3     3 33
-3  3   3  3     33
-3  3 3 3  3     333   3333
+3  3   3  3     33    33333
+3  3 3 3  3     333   
 3   3 3   3333  3  3
 3
 3  33333     3333
@@ -36,11 +46,11 @@ tiles::String = """
 3
 3
 3
-3
 333333333333333333333333333333333333333333333333"""
 #first part of the room tiles, left empty
 
-MapPointer = 392 #position offset for the next structure, every instruction spawns a different ingame structure
+wlmapbuilder.MapPointer = 392
+end
 
 function ConcatenateStrings(s1::AbstractString, s2::AbstractString) #the problem is that i can't sum 2 strings together, but i have to sum them line by line
     sarray1 = split(s1, "\n")

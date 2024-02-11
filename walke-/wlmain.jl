@@ -20,6 +20,7 @@ function main()
 
     ListOfCodes = filter(contains(r".wlk-$"), readdir("Programs/", join=true)) #open all "wlk-" files
     for file in ListOfCodes
+        wlmapbuilder.resetbuilder()
         wlerrors.WlConsole("-------------------------")
         wlerrors.ErrorFile = file
         wlerrors.WlConsole("reading file " * String(file))
@@ -97,5 +98,6 @@ function main()
 end
 
 main() #calls main
+wlerrors.WlConsole("-------------------------")
 wlerrors.WlConsole("Script ended, creating log!")
 wlerrors.WlSaveLog() #saves the log

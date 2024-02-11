@@ -1,6 +1,13 @@
 #depending on the number of instructions, it calls a different checkstructure()
 #julia sucks and you cant force an array size inside a function so im using tuples, as for outputs idc
 
+function cleancolor(color::AbstractString)
+    color = strip(color, ['!','~', '#']) #emhelper doesn't use those symbols
+    color = lowercase(color)
+    return color
+end
+
+
 #i wrote 2 functions that are basically a carbon copy of each other, but this system lets other people create their own
 #functions with specific use cases!
 function checkstructure(instructions::NTuple{3, AbstractString}, outputs::Array{String, 1}) #3 elements in the instruction + outputs
@@ -37,10 +44,8 @@ function checkstructure(instructions::NTuple{3, AbstractString}, outputs::Array{
                 end
             end
 
-        else #the token is a color, add it to the array of inputs
-            if(checknot) #remove the first character from the color
-                token = strip(token, ['!','~'])
-            end
+        else #the token is a color, clean and add it to the array of inputs
+            token = cleancolor(token)
 
             push!(InputsArray, ColorStruct(token, checknot)) #adds the color + the flag
         end
@@ -59,9 +64,7 @@ function checkstructure(instructions::NTuple{3, AbstractString}, outputs::Array{
             wlerrors.WriteError(error, output)
             return error
         else #the output is a color
-            if(checknot) #remove the first character from the color
-                output = strip(output, ['!','~'])
-            end
+            output = cleancolor(output)
 
             push!(OutputsArray, ColorStruct(output, checknot)) #adds the color + the flag
         end
@@ -97,9 +100,7 @@ function checkstructure(instructions::NTuple{1, AbstractString}, outputs::Array{
             wlerrors.WriteError(error, output)
             return error
         else #the output is a color
-            if(checknot) #remove the first character from the color
-                output = strip(output, ['!','~'])
-            end
+            output = cleancolor(output)
 
             push!(OutputsArray, ColorStruct(output, checknot)) #adds the color + the flag
         end
