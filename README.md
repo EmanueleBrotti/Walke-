@@ -41,14 +41,14 @@ the default instructions are:
 - `#00000A AND #00000B = #00000C` - logical [and](https://en.wikipedia.org/wiki/Logical_conjunction) operator
 - `#00000A OR #00000B = #00000C` - logical [or](https://en.wikipedia.org/wiki/Logical_disjunction) operator
 - `#00000A XOR #00000B = #00000C` - logical [xor](https://en.wikipedia.org/wiki/Exclusive_or) operator
-- `#00000A IMPLIES #00000B = #00000C` - logical [implication](https://en.wikipedia.org/wiki/Material_conditional)
-- `#00000A EQUIV #00000B = #00000C` - [if and only if](https://en.wikipedia.org/wiki/If_and_only_if)
+- `#00000A IMPLIES #00000B = #00000C` - logical [implication](https://en.wikipedia.org/wiki/Material_conditional), it's a pseudoinstruction!
+- `#00000A EQUIV #00000B = #00000C` - [if and only if](https://en.wikipedia.org/wiki/If_and_only_if), it's a pseudoinstruction!
 - `BUTTON = #00000C` - spawns an in-game button that changes state when pressed, reverts when not
 - `SWITCH = #00000C` - spawns an in-game switch that changes state when touched
 - `OUTPUT = #00000C` - spawns an in-game block, useful to see the value of a variable
 - `CLOCK = #00000C`  - spawns an in-game clock that generates a periodic pulse
 - `TRUE = #00000C`  - triggers the color when starting the room (it's like setting it "true")
-- `FALSE = #00000C`  - just like TRUE, but sets true the opposite (it's a pseudoinstruction!)
+- `FALSE = #00000C`  - just like TRUE, but sets true the opposite, it's a pseudoinstruction!
 
 ## Credits
 - Aletris, for compressing the logic gates as much as possible
