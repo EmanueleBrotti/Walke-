@@ -148,14 +148,24 @@ function XOR(inputs::Vector, outputs::Vector) #unfinished
     return 0
 end
 
-function IMPLIES(inputs::Vector, outputs::Vector) #unfinished
+function IMPLIES(inputs::Vector, outputs::Vector)
+    #A->B is the same as not A or B, let's invert the first input and call that function
+    if length(inputs) != 2
+        wlerrors.WlConsole("weird bug, too many inputs!")
+        return 6
+    end
 
-    return 0
+    inputs[1].opposite = !inputs[1].opposite
+    return OR(inputs, outputs)
 end
 
 function EQUIV(inputs::Vector, outputs::Vector) #unfinished
+    #A<->B is the same a A xnor B, let's invert the outputs and use xor
+    for output in outputs
+        output.opposite = !output.opposite
+    end
 
-    return 0
+    return XOR(inputs, outputs)
 end
 
 function BUTTON(outputs::Vector)
@@ -286,4 +296,18 @@ end
 function CLOCK(outputs::Vector) #unfinished
 
     return 0
+end
+
+function TRUE(outputs::Vector) #unfinished
+    return 0
+end
+
+function FALSE(outputs::Vector)
+    #FALSE sets the opposite to true, so let's invert the outputs and use the TRUE() function
+    #it's not necessary but nice to have
+    for output in outputs
+        output.opposite = !output.opposite
+    end
+
+    return TRUE(outputs)
 end

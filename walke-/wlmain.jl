@@ -1,5 +1,5 @@
 import JSON
-struct ColorStruct #each color has a name and a flag, if false it should use the opposite
+mutable struct ColorStruct #each color has a name and a flag, if false it should use the opposite
     name::String
     opposite::Bool
 end
