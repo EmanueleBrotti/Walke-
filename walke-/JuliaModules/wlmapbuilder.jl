@@ -24,7 +24,7 @@ function resetbuilder()
     wlmapbuilder.MapName = "walke-program"
 
     wlmapbuilder.tiles::String = """
-333333333333333333333333333333333333333333333333
+3333333333333333333333333333333333333333
 3
 3  3   3  3    3  3
 3  3   3  3    3 33
@@ -46,10 +46,10 @@ function resetbuilder()
 3
 3
 3
-333333333333333333333333333333333333333333333333"""
+3333333333333333333333333333333333333333"""
 #first part of the room tiles, left empty
 
-wlmapbuilder.MapPointer = 392
+wlmapbuilder.MapPointer = 328
 end
 
 function ConcatenateStrings(s1::AbstractString, s2::AbstractString) #the problem is that i can't sum 2 strings together, but i have to sum them line by line

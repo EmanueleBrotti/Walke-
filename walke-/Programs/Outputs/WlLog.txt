@@ -1,9 +1,0 @@
-Walke- By Brotti Emanuele- Walke- By Brotti Emanuele
-- -------------------------
-- opening .wlk- files in /Programs/
-- -------------------------
-- reading file Programs/test.wlk-
-- compiling test.bin
-- test compiled! You can find it in Programs/Outputs
-- -------------------------
-- Script ended, creating log!

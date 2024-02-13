@@ -159,7 +159,7 @@ function IMPLIES(inputs::Vector, outputs::Vector)
     return OR(inputs, outputs)
 end
 
-function EQUIV(inputs::Vector, outputs::Vector) #unfinished
+function EQUIV(inputs::Vector, outputs::Vector)
     #A<->B is the same a A xnor B, let's invert the outputs and use xor
     for output in outputs
         output.opposite = !output.opposite
@@ -285,21 +285,104 @@ function OUTPUT(outputs::Vector)
             return error
         end
 
-        push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentswitchblock((wlmapbuilder.MapPointer), 24, 16, 64, 0, output.opposite, String(output.name))) #creates a 16x16 block with the output in (relative) 16x 24y
-        
+        push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentswitchblock((wlmapbuilder.MapPointer), 24, 16, 64, 0, output.opposite, String(output.name)))
+
         wlmapbuilder.MapPointer += 32
     end
     
     return error
 end
 
-function CLOCK(outputs::Vector) #unfinished
+function CLOCK(outputs::Vector)
+    error = 0
+    #create the tile structure
+    wlmapbuilder.tiles, error = wlmapbuilder.ConcatenateStrings(wlmapbuilder.tiles, """
+    3333333333
 
-    return 0
+     33333333
+     3      3
+     3      3
+     3  33  3
+     3      3
+     3      3
+     3      3
+     3      3
+     3  33333
+     33333333
+
+
+
+
+
+
+
+
+
+
+    3333333333""")
+    if error != 0
+        wlerrors.WlConsole("weird bug while concatenating strings")
+        return error
+    end
+
+    for output in outputs
+        push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentswitchblock((wlmapbuilder.MapPointer+24), 48, 16, 16, 0, false, output.name))
+        push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentpressureplate((wlmapbuilder.MapPointer+48), 80, 0, false, String(output.name), true, false, false))
+    end
+
+    push!(wlmapbuilder.MapEntities, wlmapbuilder.Walkeline((wlmapbuilder.MapPointer+32), 80, "212121", true, false, false, false, false, false, true, true, false, "WalkelineIsDead")) #most of the bools are useless, except the idle one (last)
+
+    push!(wlmapbuilder.MapEntities, wlmapbuilder.Spring((wlmapbuilder.MapPointer+16), 48, true))
+    push!(wlmapbuilder.MapEntities, wlmapbuilder.Spring((wlmapbuilder.MapPointer+16), 88, true))
+    push!(wlmapbuilder.MapEntities, wlmapbuilder.JumpThru((wlmapbuilder.MapPointer+8), 40, 16, "wood", -1))
+    
+
+    wlmapbuilder.MapPointer += 80
+    return error
 end
 
-function TRUE(outputs::Vector) #unfinished
-    return 0
+function TRUE(outputs::Vector) #button is not a pressure plate but has a state + spawns a walkeline to trigger it
+    error = 0
+    for output in outputs #adds the structure for every output
+
+        wlmapbuilder.tiles, error = wlmapbuilder.ConcatenateStrings(wlmapbuilder.tiles, """
+        3333
+
+        
+        
+        
+        
+         33 
+    
+    
+    
+    
+    
+
+
+
+
+
+
+
+
+
+        
+        3333""")
+
+        if error != 0
+            wlerrors.WlConsole("weird bug while concatenating strings")
+            return error
+        end
+
+        push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentpressureplate((wlmapbuilder.MapPointer+8), 48, 0, false, String(output.name), true, true, output.opposite))
+        push!(wlmapbuilder.MapEntities, wlmapbuilder.Walkeline((wlmapbuilder.MapPointer+8), 40, "212121", true, false, false, false, false, false, true, true, true, "WalkelineIsDead")) #most of the bools are useless, except the idle one (last)
+
+
+        wlmapbuilder.MapPointer += 32
+    end
+    
+    return error
 end
 
 function FALSE(outputs::Vector)
