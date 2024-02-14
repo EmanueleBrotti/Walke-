@@ -1,0 +1,19 @@
+#ffffff or #fffff0 = #fffff1
+!#fffff2 or #fffff3 = #fffff4
+#fffff5 or #fffff6 = ~#fffff7
+
+#fffff8 and #fffff9 = #ffff10
+!#ffff11 and #ffff12 = #ffff13
+#ffff14 and #ffff15 = ~#ffff16
+
+#ffff17 implies #ffff18 = #ffff19
+!#ffff20 implies #ffff21 = #ffff22
+#ffff23 implies #ffff24 = ~#ffff25
+
+#ffff26 xor #ffff27 = #ffff28
+!#ffff29 xor #ffff30 = #ffff31
+#ffff32 xor #ffff33 = ~#ffff34
+
+#ff3f26 equiv #ff3f27 = #fff328
+!#f3ff29 equiv #f3ff30 = #f3ff31
+#ff3f32 equiv #f3ff33 = ~#f3ff34

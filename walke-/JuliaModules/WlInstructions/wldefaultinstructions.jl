@@ -1,6 +1,17 @@
 
+#this file makes no sense because it spawns the in-game structures. If you want to do smt similar
+#open a map editor, take notes of all the positions / sizes and then manually add the tiles / entities
+
 function AND(inputs::Vector, outputs::Vector)
     error = 0
+
+    if length(inputs) != 2
+        wlerrors.WlConsole("weird bug, too many inputs!")
+        return 6
+    end
+    input1 = inputs[1]
+    input2 = inputs[2]
+
     #create the tile structure
     wlmapbuilder.tiles, error = wlmapbuilder.ConcatenateStrings(wlmapbuilder.tiles, """
     333333
@@ -33,21 +44,13 @@ function AND(inputs::Vector, outputs::Vector)
 
     #add the outputs
     for output in outputs
-        OutputName = output.name
-        OutputIsOpposite = output.opposite #if true it should act in the opposite way
 
-        push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentswitchblock((wlmapbuilder.MapPointer+8), 24, 16, 16, 0, false, String(OutputName))) #creates a 16x16 block with the output in (relative) 16x 24y
-        push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentflipswitch((wlmapbuilder.MapPointer+16), 80, OutputIsOpposite, !OutputIsOpposite, String(OutputName), true, 0)) #onlyenable / onlydisable, default is onlydisable true, opposite onlyenable true
-        push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentflipswitch((wlmapbuilder.MapPointer+16), 48, !OutputIsOpposite, OutputIsOpposite, String(OutputName), true, 0)) #opposite of the prev one
+        push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentswitchblock((wlmapbuilder.MapPointer+8), 24, 16, 16, 0, false, String(output.name))) #creates a 16x16 block with the output in (relative) 16x 24y
+        push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentflipswitch((wlmapbuilder.MapPointer+16), 80, output.opposite, !output.opposite, String(output.name), true, 0)) #onlyenable / onlydisable, default is onlydisable true, opposite onlyenable true
+        push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentflipswitch((wlmapbuilder.MapPointer+16), 48, !output.opposite, output.opposite, String(output.name), true, 0)) #opposite of the prev one
     end
 
     #add the stuff that makes the instruction work
-    if length(inputs) != 2
-        wlerrors.WlConsole("weird bug, too many inputs!")
-        return 6
-    end
-    input1 = inputs[1]
-    input2 = inputs[2]
 
     push!(wlmapbuilder.MapEntities, wlmapbuilder.Walkeline((wlmapbuilder.MapPointer+16), 64, "212121", true, false, false, false, false, false, true, true, true, "WalkelineIsDead")) #most of the bools are useless, except the idle one (last)
 
@@ -73,6 +76,15 @@ end
 
 function OR(inputs::Vector, outputs::Vector)
     error = 0
+
+    #add the stuff that makes the instruction work
+    if length(inputs) != 2
+        wlerrors.WlConsole("weird bug, too many inputs!")
+        return 6
+    end
+    input1 = inputs[1]
+    input2 = inputs[2]
+
     #create the tile structure
     wlmapbuilder.tiles, error = wlmapbuilder.ConcatenateStrings(wlmapbuilder.tiles, """
     333333
@@ -105,21 +117,11 @@ function OR(inputs::Vector, outputs::Vector)
 
     #add the outputs
     for output in outputs
-        OutputName = output.name
-        OutputIsOpposite = output.opposite #if true it should act in the opposite way
 
-        push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentswitchblock((wlmapbuilder.MapPointer+8), 24, 16, 16, 0, false, String(OutputName))) #creates a 16x16 block with the output in (relative) 16x 24y
-        push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentflipswitch((wlmapbuilder.MapPointer+16), 48, OutputIsOpposite, !OutputIsOpposite, String(OutputName), true, 0)) #onlyenable / onlydisable, default is onlydisable true, opposite onlyenable true
-        push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentflipswitch((wlmapbuilder.MapPointer+16), 80, !OutputIsOpposite, OutputIsOpposite, String(OutputName), true, 0)) #opposite of the prev one
+        push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentswitchblock((wlmapbuilder.MapPointer+8), 24, 16, 16, 0, false, String(output.name))) #creates a 16x16 block with the output in (relative) 16x 24y
+        push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentflipswitch((wlmapbuilder.MapPointer+16), 48, output.opposite, !output.opposite, String(output.name), true, 0)) #onlyenable / onlydisable, default is onlydisable true, opposite onlyenable true
+        push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentflipswitch((wlmapbuilder.MapPointer+16), 80, !output.opposite, output.opposite, String(output.name), true, 0)) #opposite of the prev one
     end
-
-    #add the stuff that makes the instruction work
-    if length(inputs) != 2
-        wlerrors.WlConsole("weird bug, too many inputs!")
-        return 6
-    end
-    input1 = inputs[1]
-    input2 = inputs[2]
 
     push!(wlmapbuilder.MapEntities, wlmapbuilder.Walkeline((wlmapbuilder.MapPointer+16), 64, "212121", true, false, false, false, false, false, true, true, true, "WalkelineIsDead")) #most of the bools are useless, except the idle one (last)
 
@@ -144,8 +146,77 @@ function OR(inputs::Vector, outputs::Vector)
 end
 
 function XOR(inputs::Vector, outputs::Vector) #unfinished
+    error = 0
 
-    return 0
+    if length(inputs) != 2
+        wlerrors.WlConsole("weird bug, too many inputs!")
+        return 6
+    end
+    input1 = inputs[1]
+    input2 = inputs[2]
+
+    #create the tile structure
+    wlmapbuilder.tiles, error = wlmapbuilder.ConcatenateStrings(wlmapbuilder.tiles, """
+    3333333
+
+     33333
+     3   3
+     3   3
+     3   3
+     3   3
+     3   3
+     3   3
+     3   3
+     3   3
+     33333
+
+
+
+
+
+
+
+
+
+
+    3333333""")
+    if error != 0
+        wlerrors.WlConsole("weird bug while concatenating strings")
+        return error
+    end
+
+    for output in outputs
+        push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentswitchblock((wlmapbuilder.MapPointer+8), 24, 24, 16, 0, false, String(output.name)))
+        push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentflipswitch((wlmapbuilder.MapPointer+20), 35, !output.opposite, output.opposite, String(output.name), true, 0)) #default is onlyenable true onlydisable false
+        push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentflipswitch((wlmapbuilder.MapPointer+20), 72, output.opposite, !output.opposite, String(output.name), true, 0)) #opposite    
+    end
+    
+    push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentswitchblock((wlmapbuilder.MapPointer+24), 40, 16, 32, 0, input1.opposite, String(input1.name))) #default is false
+    if (input1.opposite) #has to place the block in the opposite way, swapping the y
+        push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentswapblock((wlmapbuilder.MapPointer+8), 72,(wlmapbuilder.MapPointer+8),56, 16, 16, 0, String(input1.name), true))
+        push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentswapblock((wlmapbuilder.MapPointer+16), 56,(wlmapbuilder.MapPointer+16),72, 16, 16, 0, String(input1.name), true))
+    else
+        push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentswapblock((wlmapbuilder.MapPointer+8), 56,(wlmapbuilder.MapPointer+8),72, 16, 16, 0, String(input1.name), true))
+        push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentswapblock((wlmapbuilder.MapPointer+16), 72,(wlmapbuilder.MapPointer+16),56, 16, 16, 0, String(input1.name), true))
+    end
+
+    push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentswitchblock((wlmapbuilder.MapPointer), 40, 16, 32, 0, input2.opposite, String(input2.name)))
+    if (input2.opposite)
+        push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentswapblock((wlmapbuilder.MapPointer+16), 72,(wlmapbuilder.MapPointer+16),56, 16, 16, 0, String(input2.name), true))
+        push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentswapblock((wlmapbuilder.MapPointer+8), 56,(wlmapbuilder.MapPointer+8),72, 16, 16, 0, String(input2.name), true))
+    else
+        push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentswapblock((wlmapbuilder.MapPointer+16), 56,(wlmapbuilder.MapPointer+16),72, 16, 16, 0, String(input2.name), true))
+        push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentswapblock((wlmapbuilder.MapPointer+8), 72,(wlmapbuilder.MapPointer+8),56, 16, 16, 0, String(input2.name), true))
+    end
+
+    push!(wlmapbuilder.MapEntities, wlmapbuilder.Walkeline((wlmapbuilder.MapPointer+21), 56, "212121", false, false, false, false, false, false, true, true, false, "WalkelineIsDead")) #most of the bools are useless, except the idle one (last)
+
+    #extra: lets manually control the inputs
+    push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentflipswitch((wlmapbuilder.MapPointer+8), 104, false, false, String(input1.name), true, 0))
+    push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentflipswitch((wlmapbuilder.MapPointer+32), 104, false, false, String(input2.name), true, 0))
+
+    wlmapbuilder.MapPointer += 56
+    return error
 end
 
 function IMPLIES(inputs::Vector, outputs::Vector)
@@ -341,7 +412,8 @@ function CLOCK(outputs::Vector)
     return error
 end
 
-function TRUE(outputs::Vector) #button is not a pressure plate but has a state + spawns a walkeline to trigger it
+function TRUE(outputs::Vector) 
+    #the button is not a pressure plate, it has a state and a walkeline to trigger it
     error = 0
     for output in outputs #adds the structure for every output
 
