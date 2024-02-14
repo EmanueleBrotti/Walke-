@@ -3,7 +3,7 @@ julia script that turns a set of instructions into a playable celeste map
 ## Requirements
 - a modded version of the celeste client
 - [EmHelper](https://gamebanana.com/mods/53716)
-- [Julia](https://julialang.org) on your fav. code editor
+- [Julia](https://julialang.org) on your fav. code editor (while installing julia, check add path!)
 - [Maple](https://github.com/CelestialCartographers/Maple)
 - [JSON](https://juliapackages.com/p/json)
 ## What's Walke-
@@ -29,7 +29,7 @@ This script compiles the code into a celeste map, that should be able to do simp
 ## How to compile a Walke- script
 - write your code in a text file, save it with the `.wlk-` extention (or check the examples in `Programs/Examples`)
 - move the file in the `Programs` folder
-- open the `walke-` folder in a code editor, run `wlmain.jl`
+- open the `walke-` folder in a code editor, run `wlmain.jl` (or open the folder in a terminal and run `julia wlmain.jl`
 - please don't edit/delete the folders, checking the integrity of each path might be developed in the future
 
 ## Syntax
