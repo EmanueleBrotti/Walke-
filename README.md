@@ -31,6 +31,7 @@ This script compiles the code into a celeste map, that should be able to do simp
 - move the file in the `Programs` folder
 - open the `walke-` folder in a code editor, run `wlmain.jl` (or open the folder in a terminal and run `julia wlmain.jl`
 - please don't edit/delete the folders, checking the integrity of each path might be developed in the future
+- before putting your map in celeste, PLEASE open it in a map editor!
 
 ## Syntax
 - comments start with `-`, everything after it will be ignored
