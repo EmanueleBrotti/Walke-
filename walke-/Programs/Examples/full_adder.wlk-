@@ -1,0 +1,17 @@
+- full adder in walke-
+
+- inputs
+SWITCH = #0000FF, #00FF00 -a,b
+SWITCH = #FF0000 -carry in
+- outputs
+OUTPUT = #FFFF00 -SUM
+OUTPUT = #00FFFF -CARRY OUT
+
+- half adder
+#0000FF XOR #00FF00 = #FFFF01 -xor gate, half adder sum
+#0000FF AND #00FF00 = #01FFFF -and gate, half adder carry out
+-----
+- rest of the full adder
+#FFFF01 AND #FF0000 = #02FFFF - and between half adder sum and carry in
+#02FFFF OR #01FFFF = #00FFFF -carry out is the or operation between the prev. result and the half adder carry out
+#FFFF01 XOR #FF0000 = #FFFF00 -sum is the xor operation between the half adder sum and carry in

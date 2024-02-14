@@ -1,0 +1,25 @@
+- master/slave flipflop in walke-
+- TAKES A BIT TO LOAD! wait until the output stops pulsing
+
+-input:
+SWITCH = #0000FF -D, sets the value
+
+-outputs:
+OUTPUT = #0000FF, #00FF00 -D and the output
+
+-clock:
+CLOCK = #FF0000 -clock
+
+-master bistable
+#0000FF AND #FF0000 = #ff0001 -SET
+!#0000FF AND #FF0000 = #ff0002 -RESET, uses !D
+
+#ff0001 OR #00ff03 = !#00ff04 -the nors are linked together
+#ff0002 OR #00ff04 = !#00ff03 -Q, the only result we need from the bistable
+-----
+-slave bystable, uses !FF0000 and Q
+#00ff03 AND !#FF0000 = #ff0011 -S, same as before
+!#00ff03 AND !#FF0000 = #ff0012 -R
+
+#ff0011 OR #00FF00 = !#00ff14
+#ff0012 OR #00ff14 = !#00FF00 -output

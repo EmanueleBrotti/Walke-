@@ -1,0 +1,27 @@
+- welcome to Walke-, the worst programming language ever!
+- as you can see, you can add a comment by adding "-" before the text
+- remember, only 1 instruction per line! This language is not CaSe SeNsItIvE
+
+- walke- uses 6 hex color codes (#FFFFFF) as bool variables:
+TRUE = #fffff1  - for example, this instruction sets "#000000" as true
+FALSE = #fffff2  - same as true but for the opposite, pseudoinstruction
+TRUE = !#fffff3  - adding "!" or "~" before a color uses the opposite, this means #000002 is false
+
+- other utility instructions:
+CLOCK = #fffff4  - creates a pulse after ~4 seconds. Doesn't change if you use a color or it's opposite
+BUTTON = #fffff5  - creates a button that changes state when pressed, reverts when released. Doesn't change if you use a color or it's opposite
+SWITCH = #fffff5  - creates a switch that changes state when interacted with. Doesn't change if you use a color or it's opposite
+OUTPUT = #fffff5  - shows the state of the color, or it's opposite if specified
+
+- logic instructions (you can use opposites of the inputs / outputs to change behaviour)
+- the structure is input1 INSTRUCTION input2 = outputs
+#ff000A AND #00ff0A = #fffffA  - logic and, using the opposite of the output (~#00000C) turns it into a nand
+#ff000B OR #00ff0B = #fffffB  - logic or, using the opposite of the output turns it into a nor
+#ff000C XOR #00ff0C = #fffffC  - logic xor, using the opposite of the output turns it into a xnor
+#ff000D EQUIV #00ff0D = #fffffD  - logic xnor, pseudoinstruction
+#ff000E IMPLIES #00ff0E = #fffffE  - material implication, same as !#00002B OR #00002C = #00002D, pseudoinstruction
+
+- misc:
+#fffff4  AnD   !#F0F00D = #F0F00F, !#0F0F1A  - you can link prevs. outputs (00000c, be careful of contraddictions!), add spaces, use lowercase letters and add multiple outputs separated by a ","
+- this is true for all instructions, some ignore opposites
+- now try to compile this file, dragging it into the walke-/Programs folder!

@@ -246,16 +246,16 @@ function BUTTON(outputs::Vector)
         wlmapbuilder.tiles, error = wlmapbuilder.ConcatenateStrings(wlmapbuilder.tiles, """
         3333
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -286,18 +286,7 @@ function SWITCH(outputs::Vector)
     for output in outputs #adds the structure for every output
 
         wlmapbuilder.tiles, error = wlmapbuilder.ConcatenateStrings(wlmapbuilder.tiles, """
-        3333
-
-    
-    
-    
-    
-    
-    
-    
-    
-         33
-         33
+    3333
 
 
 
@@ -307,8 +296,19 @@ function SWITCH(outputs::Vector)
 
 
 
+     33
+     33
 
-        3333""")
+
+
+
+
+
+
+
+
+
+    3333""")
 
         if error != 0
             wlerrors.WlConsole("weird bug while concatenating strings")
@@ -327,18 +327,7 @@ function OUTPUT(outputs::Vector)
     for output in outputs #adds the structure for every output
 
         wlmapbuilder.tiles, error = wlmapbuilder.ConcatenateStrings(wlmapbuilder.tiles, """
-        3333
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    3333
 
 
 
@@ -349,7 +338,18 @@ function OUTPUT(outputs::Vector)
 
 
 
-        3333""")
+
+
+
+
+
+
+
+
+
+
+
+    3333""")
 
         if error != 0
             wlerrors.WlConsole("weird bug while concatenating strings")
@@ -398,7 +398,8 @@ function CLOCK(outputs::Vector)
 
     for output in outputs
         push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentswitchblock((wlmapbuilder.MapPointer+24), 48, 16, 16, 0, false, output.name))
-        push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentpressureplate((wlmapbuilder.MapPointer+48), 80, 0, false, String(output.name), true, false, false))
+        push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentflipswitch((wlmapbuilder.MapPointer+48), 72, true, false, String(output.name), true, 0))
+        push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentflipswitch((wlmapbuilder.MapPointer+16), 32, false, true, String(output.name), true, 0))
     end
 
     push!(wlmapbuilder.MapEntities, wlmapbuilder.Walkeline((wlmapbuilder.MapPointer+32), 80, "212121", true, false, false, false, false, false, true, true, false, "WalkelineIsDead")) #most of the bools are useless, except the idle one (last)
@@ -420,16 +421,11 @@ function TRUE(outputs::Vector)
         wlmapbuilder.tiles, error = wlmapbuilder.ConcatenateStrings(wlmapbuilder.tiles, """
         3333
 
-        
-        
-        
-        
+
+
+
+
          33 
-    
-    
-    
-    
-    
 
 
 
@@ -439,7 +435,12 @@ function TRUE(outputs::Vector)
 
 
 
-        
+
+
+
+
+
+
         3333""")
 
         if error != 0
