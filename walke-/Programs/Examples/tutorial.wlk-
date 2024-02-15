@@ -5,7 +5,7 @@
 - walke- uses 6 hex color codes (#FFFFFF) as bool variables:
 TRUE = #fffff1  - for example, this instruction sets "#000000" as true
 FALSE = #fffff2  - same as true but for the opposite, pseudoinstruction
-TRUE = !#fffff3  - adding "!" or "~" before a color uses the opposite, this means #000002 is false
+TRUE = !#fffff3  - adding "!" or "~" before a color uses the opposite, this means #fffff3 will be false
 
 - other utility instructions:
 CLOCK = #fffff4  - creates a pulse after ~4 seconds. Doesn't change if you use a color or it's opposite
