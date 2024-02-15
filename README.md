@@ -27,10 +27,10 @@ This script compiles the code into a celeste map, that should be able to do simp
 
 
 ## How to compile a Walke- script
-- write your code in a text file, save it with the `.wlk-` extention (or check the examples in `Programs/Examples`)
+- write your code in a text file, save it with the `.wlk-` extension (or check the examples in `Programs/Examples`)
 - move the file in the `Programs` folder
 - open the `walke-` folder in a code editor, run `wlmain.jl` (or open the folder in a terminal and run `julia wlmain.jl`
-- please don't edit/delete the folders, checking the integrity of each path might be developed in the future
+- please don't edit/delete the folders, checking the integrity of each path might be added in the future
 - before putting your map in celeste, PLEASE open it in a map editor!
 
 ## Syntax
@@ -53,7 +53,7 @@ the default instructions are:
 
 ## Credits
 - Aletris, for compressing the logic gates as much as possible
-- the [Maple](https://github.com/CelestialCartographers/Maple) team, the rep that made all of this possible
+- the [Maple](https://github.com/CelestialCartographers/Maple) team, the module that made all of this possible
 
 ## Isn't it [Spass](https://webspass.spass-prover.org) but worse?
 No, because Walke- can't detect contraddictions. If a contraddiction happens, then the code
@@ -69,6 +69,6 @@ to implement a custom instruction:
 - add a `.txt` file in the `ListOfInstructions` folder, write a new `"NAME = SIZE"` in it (check `default.txt ` more infos)
 - if `SIZE` is different than 3 or 1, add a new module in `JuliaModules`, with a custom `checkstructure` function (open `wlstructurecheck,jl` to see how it works)
 - create a `.jl` file in `JuliaModules/WlInstructions`, fill it with custom `NAME()` functions that `return 0` (no errors) or an integer (an error)
-- your functions should accept an (optional) array of inputs and a (`NOT` optional) array of outputs. Each element is made from a custom struct (`ColorStruct`) that has an hex code (`.name`) and a value to check
+- depending on the number of tokens, your function should accept an (optional) array of inputs and a (`NOT` optional) array of outputs. Each element is made from a custom struct (`ColorStruct`) that has a hex code (`.name`) without `#` and a value to check
   if you should generate the color or its opposite (`.opposite`)
 - if you wish to create a different kind of in-game structure, you can code a custom `BuildInstruction`
