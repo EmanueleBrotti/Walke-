@@ -14,14 +14,14 @@ SWITCH = #fffff5  - creates a switch that changes state when interacted with. Do
 OUTPUT = #fffff5  - shows the state of the color, or it's opposite if specified
 
 - logic instructions (you can use opposites of the inputs / outputs to change behaviour)
-- the structure is input1 INSTRUCTION input2 = outputs
-#ff000A AND #00ff0A = #fffffA  - logic and, using the opposite of the output (~#00000C) turns it into a nand
+- the structure is input1 INSTRUCTION input2 = outputs (separated by a comma)
+#ff000A AND #00ff0A = #fffffA  - logic and, using the opposite of the output (~#fffffA) turns it into a nand
 #ff000B OR #00ff0B = #fffffB  - logic or, using the opposite of the output turns it into a nor
 #ff000C XOR #00ff0C = #fffffC  - logic xor, using the opposite of the output turns it into a xnor
 #ff000D EQUIV #00ff0D = #fffffD  - logic xnor, pseudoinstruction
-#ff000E IMPLIES #00ff0E = #fffffE  - material implication, same as !#00002B OR #00002C = #00002D, pseudoinstruction
+#ff000E IMPLIES #00ff0E = #fffffE  - material implication, same as !#ff000E OR #00ff0E = #fffffE, pseudoinstruction
 
 - misc:
-#fffff4  AnD   !#F0F00D = #F0F00F, !#0F0F1A  - you can link prevs. outputs (00000c, be careful of contraddictions!), add spaces, use lowercase letters and add multiple outputs separated by a ","
-- this is true for all instructions, some ignore opposites
+#fffff4  AnD   !#F0F00D = #F0F00F, !#0F0F1A  - you can link prevs. outputs (#fffff4, be careful of contraddictions!), add spaces, use lowercase letters and add multiple outputs separated by a ","
+- ^^^ this is true for all instructions, some ignore opposites
 - now try to compile this file, dragging it into the walke-/Programs folder!
