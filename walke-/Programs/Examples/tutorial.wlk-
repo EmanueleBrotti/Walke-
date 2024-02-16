@@ -12,6 +12,7 @@ CLOCK = #fffff4  - creates a pulse after ~4 seconds. Doesn't change if you use a
 BUTTON = #fffff5  - creates a button that changes state when pressed, reverts when released. Doesn't change if you use a color or it's opposite
 SWITCH = #fffff5  - creates a switch that changes state when interacted with. Doesn't change if you use a color or it's opposite
 OUTPUT = #fffff5  - shows the state of the color, or it's opposite if specified
+PIXEL = #fffff5, #fffff6, #fffff7   - shows a grid of colors, looks better with multiple outputs!
 
 - logic instructions (you can use opposites of the inputs / outputs to change behaviour)
 - the structure is input1 INSTRUCTION input2 = outputs (separated by a comma)
