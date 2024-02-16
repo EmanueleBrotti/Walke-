@@ -145,7 +145,7 @@ function OR(inputs::Vector, outputs::Vector)
     return error
 end
 
-function XOR(inputs::Vector, outputs::Vector) #unfinished
+function XOR(inputs::Vector, outputs::Vector)
     error = 0
 
     if length(inputs) != 2
@@ -466,4 +466,103 @@ function FALSE(outputs::Vector)
     end
 
     return TRUE(outputs)
+end
+
+function PIXEL(outputs::Vector) #same as output but with 16x16 blocks in the same column
+    error = 0
+    ypointer = 24 #to spawn the blocks in the same column
+
+    wlmapbuilder.tiles, error = wlmapbuilder.ConcatenateStrings(wlmapbuilder.tiles, """
+    333
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    333""")
+
+    for output in outputs
+        if error != 0
+            wlerrors.WlConsole("weird bug while concatenating strings")
+            return error
+        end
+
+        if ypointer > 120 #moves to a new column
+            ypointer = 24
+            wlmapbuilder.tiles, error = wlmapbuilder.ConcatenateStrings(wlmapbuilder.tiles, """
+            33
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            33""")
+            wlmapbuilder.MapPointer += 16
+        end
+
+        push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentswitchblock((wlmapbuilder.MapPointer), ypointer, 16, 16, 0, output.opposite, String(output.name)))
+        ypointer += 16 #moves the next block in a lower space
+
+    end
+
+    #closes the structure
+    wlmapbuilder.tiles, error = wlmapbuilder.ConcatenateStrings(wlmapbuilder.tiles, """
+    3
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    3""")
+
+    wlmapbuilder.MapPointer += 32 #4 tiles by default + how many columns in the loop
+    return error
 end

@@ -17,3 +17,4 @@ OUTPUT = 1
 CLOCK = 1
 TRUE = 1
 FALSE = 1
+PIXEL = 1
