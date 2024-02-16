@@ -473,7 +473,7 @@ function PIXEL(outputs::Vector) #same as output but with 16x16 blocks in the sam
     ypointer = 24 #to spawn the blocks in the same column
 
     wlmapbuilder.tiles, error = wlmapbuilder.ConcatenateStrings(wlmapbuilder.tiles, """
-    333
+    33
 
 
 
@@ -495,7 +495,7 @@ function PIXEL(outputs::Vector) #same as output but with 16x16 blocks in the sam
 
 
 
-    333""")
+    33""")
 
     for output in outputs
         if error != 0
@@ -532,37 +532,11 @@ function PIXEL(outputs::Vector) #same as output but with 16x16 blocks in the sam
             wlmapbuilder.MapPointer += 16
         end
 
-        push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentswitchblock((wlmapbuilder.MapPointer), ypointer, 16, 16, 0, output.opposite, String(output.name)))
+        push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentswitchblock((wlmapbuilder.MapPointer-8), ypointer, 16, 16, 0, output.opposite, String(output.name)))
         ypointer += 16 #moves the next block in a lower space
 
     end
 
-    #closes the structure
-    wlmapbuilder.tiles, error = wlmapbuilder.ConcatenateStrings(wlmapbuilder.tiles, """
-    3
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    3""")
-
-    wlmapbuilder.MapPointer += 32 #4 tiles by default + how many columns in the loop
+    wlmapbuilder.MapPointer += 16 #2 tiles by default + how many columns in the loop
     return error
 end
