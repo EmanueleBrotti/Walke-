@@ -47,6 +47,7 @@ the default instructions are:
 - `BUTTON = #00000C` - spawns an in-game button that changes state when pressed, reverts when not
 - `SWITCH = #00000C` - spawns an in-game switch that changes state when touched
 - `OUTPUT = #00000C` - spawns an in-game block, useful to see the value of a variable
+- `PIXEL = #00000C` - similar to OUTPUT, but spawns a grid of outputs in the same column, looks better with multiple outputs!
 - `CLOCK = #00000C`  - spawns an in-game clock that generates a periodic pulse
 - `TRUE = #00000C`  - triggers the color when starting the room (it's like setting it "true")
 - `FALSE = #00000C`  - just like TRUE, but sets true the opposite, it's a pseudoinstruction!
