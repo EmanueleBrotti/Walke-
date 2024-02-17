@@ -51,6 +51,7 @@ the default instructions are:
 - `CLOCK = #00000C`  - spawns an in-game clock that generates a periodic pulse
 - `TRUE = #00000C`  - triggers the color when starting the room (it's like setting it "true")
 - `FALSE = #00000C`  - just like TRUE, but sets true the opposite, it's a pseudoinstruction!
+
 expansion n.1: legacy gates!
 legacy gates simulate the very first gates made for walke-. They don't set the color to TRUE or FALSE, but simply change state
 when triggered. Those "weaker" logic gates let you create circuit that can coexist even with some contraddictins
