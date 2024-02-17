@@ -1,0 +1,7 @@
+- legacy walke- instructions, they change the state, without forcing a color
+- to be true / false
+WAND = 3
+WXOR = 3
+WOR = 3
+WIMPLIES = 3
+WEQUIV = 3
