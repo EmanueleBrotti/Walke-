@@ -51,7 +51,14 @@ the default instructions are:
 - `CLOCK = #00000C`  - spawns an in-game clock that generates a periodic pulse
 - `TRUE = #00000C`  - triggers the color when starting the room (it's like setting it "true")
 - `FALSE = #00000C`  - just like TRUE, but sets true the opposite, it's a pseudoinstruction!
-
+expansion n.1: legacy gates!
+legacy gates simulate the very first gates made for walke-. They don't set the color to TRUE or FALSE, but simply change state
+when triggered. Those "weaker" logic gates let you create circuit that can coexist even with some contraddictins
+- `#00000A WAND #00000B = #00000C` - weak AND
+- `#00000A WOR #00000B = #00000C` - weak OR
+- `#00000A WXOR #00000B = #00000C` - weak XOR
+- `#00000A WIMPLIES #00000B = #00000C` - weak IMPLIES
+- `#00000A WEQUIV #00000B = #00000C` - weak EQUIV
 ## Credits
 - Aletris, for compressing the logic gates as much as possible
 - the [Maple](https://github.com/CelestialCartographers/Maple) team, the module that made all of this possible
