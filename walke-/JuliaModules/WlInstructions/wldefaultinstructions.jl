@@ -44,7 +44,7 @@ function AND(inputs::Vector, outputs::Vector)
 
     #add the outputs
     for output in outputs
-        if debug
+        if !wlconfig.optimized
             push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentswitchblock((wlmapbuilder.MapPointer+8), 24, 16, 16, 0, false, String(output.name))) #creates a 16x16 block with the output in (relative) 16x 24y
         end
         push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentflipswitch((wlmapbuilder.MapPointer+16), 80, output.opposite, !output.opposite, String(output.name), true, 0)) #onlyenable / onlydisable, default is onlydisable true, opposite onlyenable true
@@ -68,7 +68,7 @@ function AND(inputs::Vector, outputs::Vector)
     end
 
     #extra: lets manually control the inputs
-    if debug
+    if !wlconfig.optimized
         push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentflipswitch((wlmapbuilder.MapPointer+8), 104, false, false, String(input1.name), true, 0))
         push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentflipswitch((wlmapbuilder.MapPointer+24), 104, false, false, String(input2.name), true, 0))
     end
@@ -120,7 +120,7 @@ function OR(inputs::Vector, outputs::Vector)
 
     #add the outputs
     for output in outputs
-        if debug
+        if !wlconfig.optimized
             push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentswitchblock((wlmapbuilder.MapPointer+8), 24, 16, 16, 0, false, String(output.name))) #creates a 16x16 block with the output in (relative) 16x 24y
         end
         push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentflipswitch((wlmapbuilder.MapPointer+16), 48, output.opposite, !output.opposite, String(output.name), true, 0)) #onlyenable / onlydisable, default is onlydisable true, opposite onlyenable true
@@ -142,7 +142,7 @@ function OR(inputs::Vector, outputs::Vector)
     end
 
     #extra: lets manually control the inputs
-    if debug
+    if !wlconfig.optimized
         push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentflipswitch((wlmapbuilder.MapPointer+8), 104, false, false, String(input1.name), true, 0))
         push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentflipswitch((wlmapbuilder.MapPointer+24), 104, false, false, String(input2.name), true, 0))
     end
@@ -191,7 +191,7 @@ function XOR(inputs::Vector, outputs::Vector)
     end
 
     for output in outputs
-        if debug
+        if !wlconfig.optimized
             push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentswitchblock((wlmapbuilder.MapPointer+8), 24, 24, 16, 0, false, String(output.name)))
         end
         push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentflipswitch((wlmapbuilder.MapPointer+20), 35, !output.opposite, output.opposite, String(output.name), true, 0)) #default is onlyenable true onlydisable false
@@ -218,7 +218,7 @@ function XOR(inputs::Vector, outputs::Vector)
 
     push!(wlmapbuilder.MapEntities, wlmapbuilder.Walkeline((wlmapbuilder.MapPointer+21), 56, "212121", false, false, false, false, false, false, true, true, false, "WalkelineIsDead")) #most of the bools are useless, except the idle one (last)
 
-    if debug
+    if !wlconfig.optimized
         #extra: lets manually control the inputs
         push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentflipswitch((wlmapbuilder.MapPointer+8), 104, false, false, String(input1.name), true, 0))
         push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentflipswitch((wlmapbuilder.MapPointer+32), 104, false, false, String(input2.name), true, 0))
@@ -406,11 +406,11 @@ function CLOCK(outputs::Vector)
     end
 
     for output in outputs
-        if debug
+        if !wlconfig.optimized
             push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentswitchblock((wlmapbuilder.MapPointer+24), 48, 16, 16, 0, false, output.name))
         end
-        push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentflipswitch((wlmapbuilder.MapPointer+48), 72, true, false, String(output.name), true, 0))
-        push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentflipswitch((wlmapbuilder.MapPointer+16), 32, false, true, String(output.name), true, 0))
+        push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentflipswitch((wlmapbuilder.MapPointer+48), 72, false, true, String(output.name), true, 0))
+        push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentflipswitch((wlmapbuilder.MapPointer+16), 32, true, false, String(output.name), true, 0))
     end
 
     push!(wlmapbuilder.MapEntities, wlmapbuilder.Walkeline((wlmapbuilder.MapPointer+32), 80, "212121", true, false, false, false, false, false, true, true, false, "WalkelineIsDead")) #most of the bools are useless, except the idle one (last)

@@ -6,11 +6,10 @@ end
 
 include.(filter(contains(r".jl$"), readdir("JuliaModules/"; join=true))) #includes all modules
 include.(filter(contains(r".jl$"), readdir("JuliaModules/WlInstructions/"; join=true))) #includes all instructions
-using .wlerrors, .wlmapbuilder
+using .wlerrors, .wlmapbuilder, .wlconfig
 
 error = 0 #0 = no errors, different values have different errors
 CodeLine = 0 #to see where the error is
-debug = true #TEMPORARY waiting for a config file addon, makes the structures less optimized but more clear
 
 function main()
 
@@ -21,6 +20,7 @@ function main()
 
     ListOfCodes = filter(contains(r".wlk-$"), readdir("Programs/", join=true)) #open all "wlk-" files
     for file in ListOfCodes
+        wlconfig.resetconfig() #the flags change only when specified
         wlmapbuilder.resetbuilder()
         wlerrors.WlConsole("-------------------------")
         wlerrors.ErrorFile = file

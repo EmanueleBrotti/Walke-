@@ -61,7 +61,7 @@ function buildwor(inputs::Vector, outputs::Vector)
         333333""")
 
     for output in outputs
-        if debug
+        if !wlconfig.optimized
             push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentswitchblock((wlmapbuilder.MapPointer), 80, 16, 16, 0, false, String(output.name))) #creates a 16x16 block with the output in (relative) 16x 24y
         end
         push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentpressureplate((wlmapbuilder.MapPointer+24), 64, 0, false, String(output.name), true, false, false))
@@ -83,7 +83,7 @@ function buildwor(inputs::Vector, outputs::Vector)
         push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentswapblock((wlmapbuilder.MapPointer+16), 80,(wlmapbuilder.MapPointer+16),72, 16, 16, 0, String(input2.name), true))
     end
 
-    if debug
+    if !wlconfig.optimized
         push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentflipswitch((wlmapbuilder.MapPointer+8), 104, false, false, String(input1.name), true, 0))
         push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentflipswitch((wlmapbuilder.MapPointer+24), 104, false, false, String(input2.name), true, 0))
     end
@@ -127,7 +127,7 @@ function buildwnor(inputs::Vector, outputs::Vector)
     plateoffset = input2.opposite ? -16 : 0
     walkeoffset = input1.opposite ? 16 : 0
     for output in outputs
-        if debug
+        if !wlconfig.optimized
             push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentswitchblock((wlmapbuilder.MapPointer+16), 80, 16, 16, 0, false, String(output.name))) #creates a 16x16 block with the output in (relative) 16x 24y
         end
         push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentpressureplate((wlmapbuilder.MapPointer+16), (62+plateoffset), 0, false, String(output.name), true, false, false))
@@ -147,7 +147,7 @@ function buildwnor(inputs::Vector, outputs::Vector)
         push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentswapblock((wlmapbuilder.MapPointer+16), 62,(wlmapbuilder.MapPointer+16),46, 16, 16, 0, String(input2.name), true))
     end
 
-    if debug
+    if !wlconfig.optimized
         push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentflipswitch((wlmapbuilder.MapPointer+8), 104, false, false, String(input1.name), true, 0))
         push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentflipswitch((wlmapbuilder.MapPointer+24), 104, false, false, String(input2.name), true, 0))
     end
@@ -215,7 +215,7 @@ function buildwand(inputs::Vector, outputs::Vector)
         333333""")
 
     for output in outputs
-        if debug
+        if !wlconfig.optimized
             push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentswitchblock((wlmapbuilder.MapPointer+16), 80, 16, 16, 0, false, String(output.name))) #creates a 16x16 block with the output in (relative) 16x 24y
         end
         push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentpressureplate((wlmapbuilder.MapPointer+24), 72, 0, false, String(output.name), true, false, false))
@@ -236,7 +236,7 @@ function buildwand(inputs::Vector, outputs::Vector)
         push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentswapblock((wlmapbuilder.MapPointer), 64,(wlmapbuilder.MapPointer),72, 16, 16, 0, String(input2.name), true))
     end
 
-    if debug
+    if !wlconfig.optimized
         push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentflipswitch((wlmapbuilder.MapPointer+8), 104, false, false, String(input1.name), true, 0))
         push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentflipswitch((wlmapbuilder.MapPointer+24), 104, false, false, String(input2.name), true, 0))
     end
@@ -278,7 +278,7 @@ function buildwnand(inputs::Vector, outputs::Vector)
         333333""")
 
     for output in outputs
-        if debug
+        if !wlconfig.optimized
             push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentswitchblock((wlmapbuilder.MapPointer+16), 72, 16, 16, 0, false, String(output.name))) #creates a 16x16 block with the output in (relative) 16x 24y
         end
         push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentpressureplate((wlmapbuilder.MapPointer+8), 62, 0, false, String(output.name), true, false, false))
@@ -298,7 +298,7 @@ function buildwnand(inputs::Vector, outputs::Vector)
         push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentswapblock((wlmapbuilder.MapPointer), 72,(wlmapbuilder.MapPointer),80, 16, 16, 0, String(input2.name), true))
     end
 
-    if debug
+    if !wlconfig.optimized
         push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentflipswitch((wlmapbuilder.MapPointer+8), 104, false, false, String(input1.name), true, 0))
         push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentflipswitch((wlmapbuilder.MapPointer+24), 104, false, false, String(input2.name), true, 0))
     end
@@ -367,7 +367,7 @@ function buildwxor(inputs::Vector, outputs::Vector) #unfinished
     plateoffset = input2.opposite ? 24 : 0 #if opposite the block has y=78, not 62
     walkeoffset = input1.opposite ? -24 : 0
     for output in outputs
-        if debug
+        if !wlconfig.optimized
             push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentswitchblock((wlmapbuilder.MapPointer+16), 32, 16, 16, 0, false, String(output.name))) #creates a 16x16 block with the output in (relative) 16x 24y
         end
         push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentpressureplate((wlmapbuilder.MapPointer+16), (54+plateoffset), 0, false, String(output.name), true, false, false))
@@ -387,7 +387,7 @@ function buildwxor(inputs::Vector, outputs::Vector) #unfinished
         push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentswapblock((wlmapbuilder.MapPointer+16), 54,(wlmapbuilder.MapPointer+16),78, 16, 16, 0, String(input2.name), true))
     end
 
-    if debug
+    if !wlconfig.optimized
         push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentflipswitch((wlmapbuilder.MapPointer+8), 104, false, false, String(input1.name), true, 0))
         push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentflipswitch((wlmapbuilder.MapPointer+24), 104, false, false, String(input2.name), true, 0))
     end
@@ -431,7 +431,7 @@ function buildwxnor(inputs::Vector, outputs::Vector)
     plateoffset = input2.opposite ? 24 : 0 #if opposite the block has y=78, not 62
     walkeoffset = input1.opposite ? 24 : 0
     for output in outputs
-        if debug
+        if !wlconfig.optimized
             push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentswitchblock((wlmapbuilder.MapPointer+16), 32, 16, 16, 0, false, String(output.name))) #creates a 16x16 block with the output in (relative) 16x 24y
         end
         push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentpressureplate((wlmapbuilder.MapPointer+16), (54+plateoffset), 0, false, String(output.name), true, false, false))
@@ -451,7 +451,7 @@ function buildwxnor(inputs::Vector, outputs::Vector)
         push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentswapblock((wlmapbuilder.MapPointer+16), 54,(wlmapbuilder.MapPointer+16),78, 16, 16, 0, String(input2.name), true))
     end
 
-    if debug
+    if !wlconfig.optimized
         push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentflipswitch((wlmapbuilder.MapPointer+8), 104, false, false, String(input1.name), true, 0))
         push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentflipswitch((wlmapbuilder.MapPointer+24), 104, false, false, String(input2.name), true, 0))
     end
