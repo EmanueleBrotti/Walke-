@@ -1,0 +1,3 @@
+-list of bools, when called in a file they become true, else they are false by default
+OPTIMIZED
+STOP
