@@ -551,3 +551,27 @@ function PIXEL(outputs::Vector) #same as output but with 16x16 blocks in the sam
     wlmapbuilder.MapPointer += 16 #2 tiles by default + how many columns in the loop
     return error
 end
+
+function OPTIMIZED() #the default configs are pretty basic but you can go wild!
+    wlconfig.optimized = true
+    wlerrors.WlConsole("config detected: optimized")
+    return 0
+end
+
+function STOP()
+    wlconfig.stop = true
+    wlerrors.WlConsole("config detected: stop")
+    return 0
+end
+
+function NOPTIMIZED() #the default configs are pretty basic but you can go wild!
+    wlconfig.optimized = false
+    wlerrors.WlConsole("deactivating config: optimized")
+    return 0
+end
+
+function NSTOP()
+    wlconfig.stop = false
+    wlerrors.WlConsole("deactivating config: stop")
+    return 0
+end

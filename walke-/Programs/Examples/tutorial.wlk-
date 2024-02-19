@@ -22,7 +22,16 @@ PIXEL = #fffff5, #fffff6, #fffff7   - shows a grid of colors, looks better with 
 #ff000D EQUIV #00ff0D = #fffffD  - logic xnor, pseudoinstruction
 #ff000E IMPLIES #00ff0E = #fffffE  - material implication, same as !#ff000E OR #00ff0E = #fffffE, pseudoinstruction
 
+- flags change the behaviour of the gates, after you activate a flag the next instructions will be changed
+> OPTIMIZED -optimized saves memory by not spawning extra entities like output blocks or input switches. It makes the gate a bit difficult to read tho!
+> STOP -stop adds a "pause button" triggered by the color #FFFFFF to the gate, letting the user interrupt the code
+BUTTON = #ffffff
+#ff000F AND #00ff0f = #ffffef
+> NOPTIMIZED -turns optimized off
+> NSTOP -turns stop off
+
 - misc:
-#fffff4  AnD   !#F0F00D = #F0F00F, !#0F0F1A  - you can link prevs. outputs (#fffff4, be careful of contraddictions!), add spaces, use lowercase letters and add multiple outputs separated by a ","
+#fffff4  AnD   !#F0F00D = #F0F00F, !#0F0F1A  - you can link prevs. outputs (#fffff4, be careful of contraddictions!), add spaces, use lowercase letters 
+- and/or add multiple outputs separated by a ","
 - ^^^ this is true for all instructions, some ignore opposites
 - now try to compile this file, dragging it into the walke-/Programs folder!

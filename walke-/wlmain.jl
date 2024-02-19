@@ -26,13 +26,16 @@ function main()
         wlerrors.ErrorFile = file
         wlerrors.WlConsole("reading file " * String(file))
         error = 0 #resets the variables
-        CodeLine = 0
+        CodeLine = -1 #starts with -1 because adding a line is the first thing
+        #in the loop, because it might interrupt earlier in case of errors, empty lines
+        #or other shenanigans
 
         code = open(file) do f #divide the file in lines
             readlines(f)
         end
 
         for cline in code #read each line of code
+            CodeLine = CodeLine + 1
             wlerrors.ErrorLine = CodeLine #for the wlerrors module
             cline = split(cline, "-")[1] #remove comments
             if (isempty(cline) || (all(isspace, cline))) #check if line is empty or all spaces
@@ -42,7 +45,23 @@ function main()
             cline = uppercase(cline) #turn line into UPPERCASE
             cline = replace(cline, r"\s+" => " ") #turn multiple spaces into a single one
 
-            if count(occursin("=", cline)) != 1 #check if there isnt exactly one "="
+            if count(occursin(">", cline)) > 0 #for configs!
+                cline = replace(cline, " " => "") #removes the spaces
+                if length(findall(r">", cline)) != 1 || count(occursin(">", cline)) > 1 #the instruction doesn't make sense, for example>>>, or > >
+                    error = 1 #not valid instruction
+                    WriteError(error, cline)
+                    break
+                end
+                cline = replace(cline, ">" => "")
+                error = wlconfig.changeconfig(cline)
+                if error != 0
+                    break
+                else
+                    continue
+                end
+            end
+
+            if count(occursin("=", cline)) != 1 || length(findall(r"=", cline)) != 1 #check if there isnt exactly one "=", or if there are multiple = together
                 error = 1 #not valid instruction
                 WriteError(error, cline)
                 break #stops checking this file
@@ -80,7 +99,6 @@ function main()
                 break
             end
 
-            CodeLine = CodeLine + 1
         end
 
         if error == 0 #compiles the map
@@ -89,7 +107,7 @@ function main()
             wlerrors.WlConsole("compiling " * String(FileName) * ".bin")
             wlmapbuilder.BuildMap(FileName)
         else
-            wlerrors.WlConsole("Couldn't compile the map, an error was found!")
+            wlerrors.WlConsole("Couldn't compile the map, an error was found! (" * string(error) * ")" )
         end 
     end
 end
