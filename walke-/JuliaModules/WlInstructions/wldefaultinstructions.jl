@@ -2,7 +2,7 @@
 #this file makes no sense because it spawns the in-game structures. If you want to do smt similar
 #open a map editor, take notes of all the positions / sizes and then manually add the tiles / entities
 
-function AND(inputs::Vector, outputs::Vector)
+function AND(inputs::Vector, outputs::Vector) #add stop
     error = 0
 
     if length(inputs) != 2
@@ -20,11 +20,11 @@ function AND(inputs::Vector, outputs::Vector)
      3  3
      3  3
      3333
-     3  3
-     3  3
-     3  3
-     3  3
-     3  3
+     
+     
+     
+     
+     
      3333
 
 
@@ -69,15 +69,20 @@ function AND(inputs::Vector, outputs::Vector)
 
     #extra: lets manually control the inputs
     if !wlconfig.optimized
-        push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentflipswitch((wlmapbuilder.MapPointer+8), 104, false, false, String(input1.name), true, 0))
-        push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentflipswitch((wlmapbuilder.MapPointer+24), 104, false, false, String(input2.name), true, 0))
+        push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentflipswitch((wlmapbuilder.MapPointer), 104, false, false, String(input1.name), true, 0))
+        push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentflipswitch((wlmapbuilder.MapPointer+16), 104, false, false, String(input2.name), true, 0))
+    end
+
+    if wlconfig.stop
+        push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentswapblock((wlmapbuilder.MapPointer), 48,(wlmapbuilder.MapPointer+8),48, 16, 40, 0, "ffffff", true))
+        push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentswapblock((wlmapbuilder.MapPointer+35), 48,(wlmapbuilder.MapPointer+48),48, 16, 40, 0, "ffffff", true))
     end
 
     wlmapbuilder.MapPointer += 48
     return error
 end
 
-function OR(inputs::Vector, outputs::Vector)
+function OR(inputs::Vector, outputs::Vector) #add stop
     error = 0
 
     #add the stuff that makes the instruction work
@@ -150,7 +155,7 @@ function OR(inputs::Vector, outputs::Vector)
     return error
 end
 
-function XOR(inputs::Vector, outputs::Vector)
+function XOR(inputs::Vector, outputs::Vector) #add stop
     error = 0
 
     if length(inputs) != 2
@@ -418,13 +423,15 @@ function CLOCK(outputs::Vector)
     push!(wlmapbuilder.MapEntities, wlmapbuilder.Spring((wlmapbuilder.MapPointer+16), 48, true))
     push!(wlmapbuilder.MapEntities, wlmapbuilder.Spring((wlmapbuilder.MapPointer+16), 88, true))
     push!(wlmapbuilder.MapEntities, wlmapbuilder.JumpThru((wlmapbuilder.MapPointer+8), 40, 16, "wood", -1))
-    
+    if wlconfig.stop
+        push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentswitchblock((wlmapbuilder.MapPointer+40), 48, 16, 16, 0, false, "ffffff"))
+    end
 
     wlmapbuilder.MapPointer += 80
     return error
 end
 
-function TRUE(outputs::Vector) 
+function TRUE(outputs::Vector)
     #the button is not a pressure plate, it has a state and a walkeline to trigger it
     error = 0
     for output in outputs #adds the structure for every output
@@ -462,6 +469,9 @@ function TRUE(outputs::Vector)
         push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentpressureplate((wlmapbuilder.MapPointer+8), 48, 0, false, String(output.name), true, true, output.opposite))
         push!(wlmapbuilder.MapEntities, wlmapbuilder.Walkeline((wlmapbuilder.MapPointer+8), 40, "212121", true, false, false, false, false, false, true, true, true, "WalkelineIsDead")) #most of the bools are useless, except the idle one (last)
 
+        if wlconfig.stop
+            push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentswapblock((wlmapbuilder.MapPointer+8), 56,(wlmapbuilder.MapPointer+8),32, 16, 16, 0, "ffffff", true))
+        end
 
         wlmapbuilder.MapPointer += 32
     end

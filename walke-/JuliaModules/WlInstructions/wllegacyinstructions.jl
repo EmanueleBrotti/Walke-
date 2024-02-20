@@ -27,7 +27,7 @@ function WOR(inputs::Vector, outputs::Vector)
     return error
 end
 
-function buildwor(inputs::Vector, outputs::Vector)
+function buildwor(inputs::Vector, outputs::Vector) #add stop
     error = 0
     if isempty(outputs) #all the outputs are in the opposite gate
         return 0
@@ -92,7 +92,7 @@ function buildwor(inputs::Vector, outputs::Vector)
     return error
 end
 
-function buildwnor(inputs::Vector, outputs::Vector)
+function buildwnor(inputs::Vector, outputs::Vector) #add stop
     error = 0
     if isempty(outputs) #all the outputs are in the opposite gate
         return 0
@@ -156,7 +156,7 @@ function buildwnor(inputs::Vector, outputs::Vector)
     return error
 end
 
-function WAND(inputs::Vector, outputs::Vector)
+function WAND(inputs::Vector, outputs::Vector) 
     error = 0
     trueoutputs = [] #splits into two structures
     falseoutputs = [] #for the opposite
@@ -181,7 +181,7 @@ function WAND(inputs::Vector, outputs::Vector)
     return error
 end
 
-function buildwand(inputs::Vector, outputs::Vector)
+function buildwand(inputs::Vector, outputs::Vector) #add stop
     error = 0
     if isempty(outputs) #all the outputs are in the opposite gate
         return 0
@@ -245,7 +245,7 @@ function buildwand(inputs::Vector, outputs::Vector)
     return error
 end
 
-function buildwnand(inputs::Vector, outputs::Vector)
+function buildwnand(inputs::Vector, outputs::Vector) #add stop
     error = 0
     if isempty(outputs) #all the outputs are in the opposite gate
         return 0
@@ -332,7 +332,7 @@ function WXOR(inputs::Vector, outputs::Vector)
     return error
 end
 
-function buildwxor(inputs::Vector, outputs::Vector) #unfinished
+function buildwxor(inputs::Vector, outputs::Vector) #add stop
     error = 0
     if isempty(outputs) #all the outputs are in the opposite gate
         return 0
@@ -396,7 +396,7 @@ function buildwxor(inputs::Vector, outputs::Vector) #unfinished
     return error
 end
 
-function buildwxnor(inputs::Vector, outputs::Vector)
+function buildwxnor(inputs::Vector, outputs::Vector) #add stop
     error = 0
     if isempty(outputs) #all the outputs are in the opposite gate
         return 0
