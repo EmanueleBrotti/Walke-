@@ -60,6 +60,14 @@ when triggered. Those "weaker" logic gates let you create circuit that can coexi
 - `#00000A WXOR #00000B = #00000C` - weak XOR
 - `#00000A WIMPLIES #00000B = #00000C` - weak IMPLIES
 - `#00000A WEQUIV #00000B = #00000C` - weak EQUIV
+
+expansion n.2: flags!
+flags change the behaviour of each gate. After calling a flag in the code, the next instructions will be influenced
+- `> OPTIMIZED` - removes all the extra entities that make the gates more readable, useful for larger projects
+- `> NOPTIMIZED` - reverts to default
+- `> STOP` - adds a "stop" that freezes the gate, using the reserved color `#FFFFFF`
+- `> NSTOP` - reverts to default
+
 ## Credits
 - Aletris, for compressing the logic gates as much as possible
 - the [Maple](https://github.com/CelestialCartographers/Maple) team, the module that made all of this possible
