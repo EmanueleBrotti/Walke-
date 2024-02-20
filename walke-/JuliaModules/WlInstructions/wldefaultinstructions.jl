@@ -173,20 +173,18 @@ function XOR(inputs::Vector, outputs::Vector) #add stop
 
     #create the tile structure
     wlmapbuilder.tiles, error = wlmapbuilder.ConcatenateStrings(wlmapbuilder.tiles, """
-    3333333
+    333333
 
-     33333
-     3   3
-     3   3
-     3   3
-     3   3
-     3   3
-     3   3
-     3   3
-     3   3
-     33333
-
-
+     3333
+     3  3
+     3  3
+     3  3
+     3  3
+     3  3
+     3  3
+     3  3
+     3  3
+     3333
 
 
 
@@ -195,7 +193,9 @@ function XOR(inputs::Vector, outputs::Vector) #add stop
 
 
 
-    3333333""")
+
+
+    333333""")
     if error != 0
         wlerrors.WlConsole("weird bug while concatenating strings")
         return error
@@ -203,39 +203,36 @@ function XOR(inputs::Vector, outputs::Vector) #add stop
 
     for output in outputs
         if !wlconfig.optimized
-            push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentswitchblock((wlmapbuilder.MapPointer+8), 24, 24, 16, 0, false, String(output.name)))
+            push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentswitchblock((wlmapbuilder.MapPointer+8), 24, 16, 16, 0, false, String(output.name)))
         end
-        push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentflipswitch((wlmapbuilder.MapPointer+20), 35, !output.opposite, output.opposite, String(output.name), true, 0)) #default is onlyenable true onlydisable false
-        push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentflipswitch((wlmapbuilder.MapPointer+20), 72, output.opposite, !output.opposite, String(output.name), true, 0)) #opposite    
+
+        #now here's a brainfart: the structure uses 2 buttons that get spawned in the opposite way if you are using the opposite of input1
+        #BUT if you opposite the output that would mean you are using a xnor, so the buttons have to be swapped again
+        flag = input1.opposite #so let's check the state of the input1
+        output.opposite && (flag = !flag) #if you are using the opposite of the output, let's swap again
+        push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentpressureplate((wlmapbuilder.MapPointer+8), 82, 0, false, String(output.name), true, true, !flag)) #buttons attached to input1
+        push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentpressureplate((wlmapbuilder.MapPointer+24), 82, 0, false, String(output.name), true, true, flag)) #by default this one has the last flag as false
     end
     
-    push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentswitchblock((wlmapbuilder.MapPointer+24), 40, 16, 32, 0, input1.opposite, String(input1.name))) #default is false
-    if (input1.opposite) #has to place the block in the opposite way, swapping the y
-        push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentswapblock((wlmapbuilder.MapPointer+8), 72,(wlmapbuilder.MapPointer+8),56, 16, 16, 0, String(input1.name), true))
-        push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentswapblock((wlmapbuilder.MapPointer+16), 56,(wlmapbuilder.MapPointer+16),72, 16, 16, 0, String(input1.name), true))
-    else
-        push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentswapblock((wlmapbuilder.MapPointer+8), 56,(wlmapbuilder.MapPointer+8),72, 16, 16, 0, String(input1.name), true))
-        push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentswapblock((wlmapbuilder.MapPointer+16), 72,(wlmapbuilder.MapPointer+16),56, 16, 16, 0, String(input1.name), true))
-    end
+    push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentswapblock((wlmapbuilder.MapPointer+16), 82,(wlmapbuilder.MapPointer),82, 16, 16, 0, String(input1.name), true)) #the opposite is checked in the output loop
+    push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentswapblock((wlmapbuilder.MapPointer), 82,(wlmapbuilder.MapPointer+16),82, 16, 16, 0, String(input1.name), true))
 
-    push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentswitchblock((wlmapbuilder.MapPointer), 40, 16, 32, 0, input2.opposite, String(input2.name)))
-    if (input2.opposite)
-        push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentswapblock((wlmapbuilder.MapPointer+16), 72,(wlmapbuilder.MapPointer+16),56, 16, 16, 0, String(input2.name), true))
-        push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentswapblock((wlmapbuilder.MapPointer+8), 56,(wlmapbuilder.MapPointer+8),72, 16, 16, 0, String(input2.name), true))
-    else
-        push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentswapblock((wlmapbuilder.MapPointer+16), 56,(wlmapbuilder.MapPointer+16),72, 16, 16, 0, String(input2.name), true))
-        push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentswapblock((wlmapbuilder.MapPointer+8), 72,(wlmapbuilder.MapPointer+8),56, 16, 16, 0, String(input2.name), true))
-    end
+    push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentswitchblock((wlmapbuilder.MapPointer), 59, 16, 16, 0, input2.opposite, String(input2.name)))
+    push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentswitchblock((wlmapbuilder.MapPointer+16), 59, 16, 16, 0, !input2.opposite, String(input2.name)))
 
-    push!(wlmapbuilder.MapEntities, wlmapbuilder.Walkeline((wlmapbuilder.MapPointer+21), 56, "212121", false, false, false, false, false, false, true, true, false, "WalkelineIsDead")) #most of the bools are useless, except the idle one (last)
+    push!(wlmapbuilder.MapEntities, wlmapbuilder.Walkeline((wlmapbuilder.MapPointer+13), 56, "212121", false, false, false, false, false, false, true, true, false, "WalkelineIsDead")) #most of the bools are useless, except the idle one (last)
 
     if !wlconfig.optimized
         #extra: lets manually control the inputs
         push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentflipswitch((wlmapbuilder.MapPointer+8), 104, false, false, String(input1.name), true, 0))
-        push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentflipswitch((wlmapbuilder.MapPointer+32), 104, false, false, String(input2.name), true, 0))
+        push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentflipswitch((wlmapbuilder.MapPointer+24), 104, false, false, String(input2.name), true, 0))
     end
 
-    wlmapbuilder.MapPointer += 56
+    if wlconfig.stop
+        push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentswapblock((wlmapbuilder.MapPointer+8), 88,(wlmapbuilder.MapPointer+8),56, 16, 16, 0, "ffffff", true))
+    end
+
+    wlmapbuilder.MapPointer += 48
     return error
 end
 
@@ -420,8 +417,8 @@ function CLOCK(outputs::Vector)
         if !wlconfig.optimized
             push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentswitchblock((wlmapbuilder.MapPointer+24), 48, 16, 16, 0, false, output.name))
         end
-        push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentflipswitch((wlmapbuilder.MapPointer+48), 72, false, true, String(output.name), true, 0))
-        push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentflipswitch((wlmapbuilder.MapPointer+16), 32, true, false, String(output.name), true, 0))
+        push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentflipswitch((wlmapbuilder.MapPointer+48), 72, output.opposite, !output.opposite, String(output.name), true, 0))
+        push!(wlmapbuilder.MapEntities, wlmapbuilder.Monumentflipswitch((wlmapbuilder.MapPointer+16), 32, output.opposite, output.opposite, String(output.name), true, 0))
     end
 
     push!(wlmapbuilder.MapEntities, wlmapbuilder.Walkeline((wlmapbuilder.MapPointer+32), 80, "212121", true, false, false, false, false, false, true, true, false, "WalkelineIsDead")) #most of the bools are useless, except the idle one (last)
