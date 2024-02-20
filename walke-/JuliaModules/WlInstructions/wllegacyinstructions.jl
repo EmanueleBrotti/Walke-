@@ -27,7 +27,7 @@ function WOR(inputs::Vector, outputs::Vector)
     return error
 end
 
-function buildwor(inputs::Vector, outputs::Vector) #add stop
+function buildwor(inputs::Vector, outputs::Vector) 
     error = 0
     if isempty(outputs) #all the outputs are in the opposite gate
         return 0
@@ -92,7 +92,7 @@ function buildwor(inputs::Vector, outputs::Vector) #add stop
     return error
 end
 
-function buildwnor(inputs::Vector, outputs::Vector) #add stop
+function buildwnor(inputs::Vector, outputs::Vector)
     error = 0
     if isempty(outputs) #all the outputs are in the opposite gate
         return 0
@@ -181,7 +181,7 @@ function WAND(inputs::Vector, outputs::Vector)
     return error
 end
 
-function buildwand(inputs::Vector, outputs::Vector) #add stop
+function buildwand(inputs::Vector, outputs::Vector)
     error = 0
     if isempty(outputs) #all the outputs are in the opposite gate
         return 0
@@ -245,7 +245,7 @@ function buildwand(inputs::Vector, outputs::Vector) #add stop
     return error
 end
 
-function buildwnand(inputs::Vector, outputs::Vector) #add stop
+function buildwnand(inputs::Vector, outputs::Vector)
     error = 0
     if isempty(outputs) #all the outputs are in the opposite gate
         return 0
@@ -332,7 +332,7 @@ function WXOR(inputs::Vector, outputs::Vector)
     return error
 end
 
-function buildwxor(inputs::Vector, outputs::Vector) #add stop
+function buildwxor(inputs::Vector, outputs::Vector) 
     error = 0
     if isempty(outputs) #all the outputs are in the opposite gate
         return 0
@@ -396,7 +396,7 @@ function buildwxor(inputs::Vector, outputs::Vector) #add stop
     return error
 end
 
-function buildwxnor(inputs::Vector, outputs::Vector) #add stop
+function buildwxnor(inputs::Vector, outputs::Vector) 
     error = 0
     if isempty(outputs) #all the outputs are in the opposite gate
         return 0

@@ -2,13 +2,14 @@
 - they don't force the color to be true or false, they simply change state, using pressure plates
 - so an instruction can be on, off, or something in between like "on even if the condition is false"
 - more info at the end of the file, the instructions work the same way as the default ones (check the default tutorial first!)
+- also, by design, they can't really be "paused", so the > STOP flag has no effect on them
 
-!#ffffff and ~#000000 = #111111  -creates a legacy AND gate, uses the opposite of the inputs
+!#ffffff wand ~#000000 = #111111  -creates a legacy AND gate, uses the opposite of the inputs (just to show that they work just like the default ones)
 #FFFFF0 WAND #FFFFF1 = #FFFFF2, !#FFFFF3  -creates a legacy AND gate with #FFFFF2 as output, and a legacy NAND gate with #FFFFF3 as output
 #1FFFF0 WOR #1FFFF1 = #1FFFF2, !#1FFFF3  -creates a legacy OR gate with #1FFFF2 as output, and a legacy NOR gate with #1FFFF3 as output
 #2FFFF0 WXOR #2FFFF1 = #2FFFF2, !#2FFFF3  -creates a legacy XOR gate with #2FFFF2 as output, and a legacy XNOR gate with #2FFFF3 as output
 #3FFFF0 WEQUIV #3FFFF1 = #3FFFF2  -creates a legacy EQUIV gate, pseudoinstruction (check the first tutorial!)
-#4FFFF0 WIMPLIES #4FFFF1 = #4FFFF2  -creates a legacy IMPLIES gate, pseudoinstructions
+#4FFFF0 WIMPLIES #4FFFF1 = #4FFFF2  -creates a legacy IMPLIES gate, pseudoinstruction
 
 - the limitation of having to use pressure plates means that a structure can't act as 2 different gates, like the default ones do
 - for example, the default AND instruction uses a single structure that acts as a NAND/AND gate depending on the output
