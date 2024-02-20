@@ -1,0 +1,40 @@
+> STOP
+SWITCH = #ffffff
+
+TRUE = #fffff1  - for example, this instruction sets "#000000" as true
+FALSE = #fffff2  - same as true but for the opposite, pseudoinstruction
+TRUE = !#fffff3  - adding "!" or "~" before a color uses the opposite, this means #fffff3 will be false
+
+
+CLOCK = #fffff4  - creates a pulse after ~4 seconds. Doesn't change if you use a color or it's opposite
+BUTTON = #fffff5  - creates a button that changes state when pressed, reverts when released. Doesn't change if you use a color or it's opposite
+SWITCH = #fffff5  - creates a switch that changes state when interacted with. Doesn't change if you use a color or it's opposite
+OUTPUT = #fffff5  - shows the state of the color, or it's opposite if specified
+PIXEL = #fffff5, #fffff6, #fffff7   - shows a grid of colors, looks better with multiple outputs!
+
+
+#ff000A AND #00ff0A = #fffffA  - logic and, using the opposite of the output (~#fffffA) turns it into a nand
+#ff000B OR #00ff0B = #fffffB  - logic or, using the opposite of the output turns it into a nor
+#ff000C XOR #00ff0C = #fffffC  - logic xor, using the opposite of the output turns it into a xnor
+#ff000D EQUIV #00ff0D = #fffffD  - logic xnor, pseudoinstruction
+#ff000E IMPLIES #00ff0E = #fffffE  - material implication, same as !#ff000E OR #00ff0E = #fffffE, pseudoinstruction
+
+>NSTOP
+
+TRUE = #fffff1  - for example, this instruction sets "#000000" as true
+FALSE = #fffff2  - same as true but for the opposite, pseudoinstruction
+TRUE = !#fffff3  - adding "!" or "~" before a color uses the opposite, this means #fffff3 will be false
+
+
+CLOCK = #fffff4  - creates a pulse after ~4 seconds. Doesn't change if you use a color or it's opposite
+BUTTON = #fffff5  - creates a button that changes state when pressed, reverts when released. Doesn't change if you use a color or it's opposite
+SWITCH = #fffff5  - creates a switch that changes state when interacted with. Doesn't change if you use a color or it's opposite
+OUTPUT = #fffff5  - shows the state of the color, or it's opposite if specified
+PIXEL = #fffff5, #fffff6, #fffff7   - shows a grid of colors, looks better with multiple outputs!
+
+
+#ff000A AND #00ff0A = #fffffA  - logic and, using the opposite of the output (~#fffffA) turns it into a nand
+#ff000B OR #00ff0B = #fffffB  - logic or, using the opposite of the output turns it into a nor
+#ff000C XOR #00ff0C = #fffffC  - logic xor, using the opposite of the output turns it into a xnor
+#ff000D EQUIV #00ff0D = #fffffD  - logic xnor, pseudoinstruction
+#ff000E IMPLIES #00ff0E = #fffffE  - material implication, same as !#ff000E OR #00ff0E = #fffffE, pseudoinstruction
