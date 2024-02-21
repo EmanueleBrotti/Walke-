@@ -54,7 +54,7 @@ the default instructions are:
 
 expansion n.1: legacy gates!
 legacy gates simulate the very first gates made for walke-. They don't set the color to TRUE or FALSE, but simply change state
-when triggered. Those "weaker" logic gates let you create circuit that can coexist even with some contraddictins
+when triggered. Those "weaker" logic gates let you create circuit that can coexist even with some contraddictions
 - `#00000A WAND #00000B = #00000C` - weak AND
 - `#00000A WOR #00000B = #00000C` - weak OR
 - `#00000A WXOR #00000B = #00000C` - weak XOR
