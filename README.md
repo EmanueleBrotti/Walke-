@@ -83,8 +83,8 @@ i tried to code Walke- to make it as modular as possible. I'm not actively worki
 - right now walke- supports instructions with 3 or 1 tokens, other types can be implemented
 
 to implement a custom instruction:
-- add a `.txt` file in the `ListOfInstructions` folder, write a new `"NAME = SIZE"` in it (check `default.txt ` more infos)
-- if `SIZE` is different than 3 or 1, add a new module in `JuliaModules`, with a custom `checkstructure` function (open `wlstructurecheck,jl` to see how it works)
+- add a `.txt` file in the `ListOfInstructions` folder, write a new `"NAME = SIZE"` in it (check `default.txt ` for more infos)
+- if `SIZE` is different than 3 or 1, add a new module in `JuliaModules`, with a custom `checkstructure` function (open `wlstructurecheck.jl` to see how it works)
 - create a `.jl` file in `JuliaModules/WlInstructions`, fill it with custom `NAME()` functions that `return 0` (no errors) or an integer (an error)
 - depending on the number of tokens, your function should accept an (optional) array of inputs and a (`NOT` optional) array of outputs. Each element is made from a custom struct (`ColorStruct`) that has a hex code (`.name`) without `#` and a value to check
   if you should generate the color or its opposite (`.opposite`)
